@@ -4,31 +4,110 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
+import java.util.Set;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+
+import com.too.ues.edu.canastabasica.model.Rol;
+
 @Entity
 public class Usuario {
 
 	@Id
-	private int idUsuario;
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Long idUsuario;
 	
-	@Column(name= "nombre", length = 50)
-	private String nombre;
+	@Column(name= "username", length = 50)
+	private String username;
 
-	public int getIdUsuario() {
+	@Column
+	private String password;
+
+	@Column
+	private boolean enabled;
+
+	
+
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(name="roles_usuarios",
+	joinColumns=@JoinColumn(name="username_id"),
+	inverseJoinColumns=@JoinColumn(name="rol_id"))
+	private Set<Rol> rol;
+
+	
+	
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((idUsuario == null) ? 0 :idUsuario.hashCode());
+		return result;
+	}	
+
+	@Override
+public boolean equals(Object obj) {
+    if (this == obj)
+        return true;
+    if (obj == null)
+        return false;
+    if (getClass() != obj.getClass())
+        return false;
+    Usuario other = (Usuario) obj;
+    if (idUsuario == null) {
+        if (other.idUsuario != null)
+            return false;
+        } else if (!idUsuario.equals(other.idUsuario))
+            return false;
+        return true;
+}
+
+@Override
+public String toString() {
+    return "User [id=" + idUsuario + ", username=" + username + ", password=" + password + "]";
+}
+
+	public Long getIdUsuario() {
 		return idUsuario;
 	}
 
-	public void setIdUsuario(int idUsuario) {
+	public void setIdUsuario(Long idUsuario) {
 		this.idUsuario = idUsuario;
 	}
 
-	public String getNombre() {
-		return nombre;
+	public String getUsername() {
+		return username;
 	}
 
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
+	public void setUsername(String username) {
+		this.username = username;
 	}
-	
-	
-	
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public boolean isEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
+
+	public Set<Rol> getRol() {
+		return rol;
+	}
+
+	public void setRol(Set<Rol> rol) {
+		this.rol = rol;
+	}
+
+
 }

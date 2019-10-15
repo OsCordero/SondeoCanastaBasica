@@ -15,17 +15,25 @@ public class UsuarioController {
 	@Autowired
 	private IUsuarioRepo repo;
 	
+	@GetMapping("/prueba")
+	public String home() {
+		return "prueba";
+	}
+
 	@GetMapping("/usuario")
 	public String usuario(@RequestParam(name = "name", required=false, defaultValue="Robert") String name, Model model) {
-		
-		
+				
 		Usuario u = new Usuario();
-		u.setIdUsuario(1);
-		u.setNombre("Mabi");
+		//u.setIdUsuario(1);
+		u.setUsername("Mabi");
+		u.setPassword("pass");
+		u.setEnabled(true);
 		repo.save(u);
 		
 		model.addAttribute("name", name);
 		return "usuario";
 	}
+
+	
 	
 }
