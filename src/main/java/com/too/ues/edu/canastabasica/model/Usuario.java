@@ -16,22 +16,21 @@ import com.too.ues.edu.canastabasica.model.Rol;
 
 @Entity
 public class Usuario {
-
+		
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	//@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private Long idUsuario;
-	
-	@Column(name= "username", length = 50)
+
+	@Column(name= "username", unique = true , nullable = false,length = 45)
 	private String username;
 
-	@Column
+	@Column(name= "password", nullable = false,length = 60)
 	private String password;
 
-	@Column
+	@Column(name= "enabled",nullable = false)
 	private boolean enabled;
 
 	
-
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name="roles_usuarios",
 	joinColumns=@JoinColumn(name="username_id"),

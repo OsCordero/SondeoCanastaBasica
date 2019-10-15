@@ -21,15 +21,26 @@ public class DemoApplicationTests {
 	private BCryptPasswordEncoder encoder;
 
 	
-	//Test para crear usuario en bd
+	//Test para crear usuarios en bd
 	@Test
-	public void creartUsuario(){
+	public void createUsuario(){
 		Usuario us= new Usuario();				
+		us.setIdUsuario(Long.parseLong("1"));
 		us.setEnabled(true);
 		us.setPassword(encoder.encode("password"));
-		us.setUsername("Jose");		
+		us.setUsername("Prueba");		
 		Usuario retorno=repo.save(us);
+		
+		Usuario usDos= new Usuario();				
+		usDos.setIdUsuario(Long.parseLong("2"));
+		usDos.setEnabled(true);
+		usDos.setPassword(encoder.encode("password"));
+		usDos.setUsername("Test");		
+		Usuario retornoDos=repo.save(usDos);
 	}
+
+
+
 
 	
 
