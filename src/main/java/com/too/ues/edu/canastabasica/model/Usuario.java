@@ -28,8 +28,8 @@ public class Usuario {
 	@Column(name= "password", nullable = false,length = 60)
 	private String password;
 
-	@Column(name= "enabled",nullable = false)
-	private boolean enabled;
+	//@Column(name= "enabled",nullable = false)
+	//private boolean enabled;
 
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name="roles_usuarios",
@@ -90,13 +90,13 @@ public String toString() {
 		this.password = password;
 	}
 
-	public boolean isEnabled() {
+	/*public boolean isEnabled() {
 		return enabled;
-	}
+	}*/
 
-	public void setEnabled(boolean enabled) {
+	/*public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
-	}
+	}*/
 
 	public Set<Rol> getRol() {
 		return rol;
