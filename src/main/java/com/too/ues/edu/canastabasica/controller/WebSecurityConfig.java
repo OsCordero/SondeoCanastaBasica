@@ -9,12 +9,19 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import nz.net.ultraq.thymeleaf.LayoutDialect;
+
 import com.too.ues.edu.canastabasica.servicio.UserDetailsServiceImpl;
 
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 
+    @Bean
+    public LayoutDialect layoutDialect() {
+        return new LayoutDialect();
+    }
+    
     //Necesario para evitar que la seguridad se aplique a los resources
     //Como los css, imagenes y javascripts
     String[] resources = new String[]{

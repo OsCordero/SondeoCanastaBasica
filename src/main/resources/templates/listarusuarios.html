@@ -1,10 +1,7 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8"/>
-<title>Usuarios</title>
-</head>
-<body>
+<html xmlns:layout="http://www.w3.org/1999/xhtml" layout:decorate="~{layouts/layout}">
+<body>	
+	<div class="container" layout:fragment="content">
 	<h1>Administrar usuarios</h1>
 	<a th:href="@{/registrarusuario}">
 	    <button>Registrar usuario</button>
@@ -24,5 +21,6 @@
 	<form th:action="@{/app-logout}" method="POST">
 	<input type="submit" value="Logout"/>
 	</form>
+</div>
 </body>
 </html>
