@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8"/>
+<title>Usuarios</title>
+</head>
+<body>
+	<h1>Administrar usuarios</h1>
+	<a th:href="@{/registrarusuario}">
+	    <button>Registrar usuario</button>
+	</a>
+	<table>
+		<thead>
+			<tr>
+				<th>Nombre</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="usuario : ${usuarios}">
+				<td th:text="${usuario.username}"></td>
+			</tr>
+		</tbody>
+	</table>
+</body>
+</html>

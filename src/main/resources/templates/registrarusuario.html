@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8"/>
+<title>Usuarios</title>
+</head>
+<body>
+	<h1>Registrar usuario</h1>
+	<form action="#" th:action="@{/addusuario}" th:object="${usuario}" method="post">
+	
+		<p>Nombre: <input type="text" th:field="*{username}"></p>
+		
+		<p>Contraseña: <input type="password" th:field="*{password}"></p>
+		
+		<p>
+			<input type="radio" name="habilitado" value="1" th:field="*{enabled}"> Habilitado<br>
+			<input type="radio" name="habilitado" value="0" th:field="*{enabled}"> Deshabilitado<br>
+		</p>
+		
+		<p><input type="submit" value="Submit"></p>
+	</form>
+</body>
+</html>

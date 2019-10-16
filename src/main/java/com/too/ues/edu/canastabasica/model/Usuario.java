@@ -19,6 +19,7 @@ public class Usuario {
 		
 	@Id
 	//@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue
 	private Long idUsuario;
 
 	@Column(name= "username", unique = true , nullable = false,length = 45)
@@ -30,14 +31,11 @@ public class Usuario {
 	@Column(name= "enabled",nullable = false)
 	private boolean enabled;
 
-	
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name="roles_usuarios",
 	joinColumns=@JoinColumn(name="username_id"),
 	inverseJoinColumns=@JoinColumn(name="rol_id"))
 	private Set<Rol> rol;
-
-	
 	
 	public int hashCode() {
 		final int prime = 31;
@@ -107,6 +105,5 @@ public String toString() {
 	public void setRol(Set<Rol> rol) {
 		this.rol = rol;
 	}
-
 
 }
