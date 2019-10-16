@@ -22,6 +22,12 @@ public class Usuario {
 	@GeneratedValue
 	private Long idUsuario;
 
+	@Column(name= "nombre", nullable = false,length = 100)
+	private String nombre;
+	
+	@Column(name= "correo", nullable = false,length = 100)
+	private String correo; 
+	
 	@Column(name= "username", unique = true , nullable = false,length = 45)
 	private String username;
 
@@ -63,14 +69,14 @@ public boolean equals(Object obj) {
 
 @Override
 public String toString() {
-    return "User [id=" + idUsuario + ", username=" + username + ", password=" + password + "]";
+	return "Usuario [idUsuario=" + idUsuario + ", nombre=" + nombre + ", correo=" + correo + ", username=" + username
+			+ ", password=" + password + ", enabled=" + enabled + "]";
 }
-
 	public Long getIdUsuario() {
 		return idUsuario;
 	}
 
-	public void setIdUsuario(Long idUsuario) {
+		public void setIdUsuario(Long idUsuario) {
 		this.idUsuario = idUsuario;
 	}
 
@@ -105,5 +111,19 @@ public String toString() {
 	public void setRol(Set<Rol> rol) {
 		this.rol = rol;
 	}
+	public String getNombre() {
+		return nombre;
+	}
 
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	public String getCorreo() {
+		return correo;
+	}
+
+	public void setCorreo(String correo) {
+		this.correo = correo;
+	}
 }

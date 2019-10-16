@@ -10,7 +10,8 @@ import javax.persistence.Id;
 public class Rol{
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.SEQUENCE)
+	//@GeneratedValue(strategy=GenerationType.SEQUENCE)
+	@GeneratedValue
 	private Long id;
 	
 	@Column

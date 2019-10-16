@@ -5,7 +5,11 @@
 	<h1>Registrar usuario</h1>
 	<form action="#" th:action="@{/addusuario}" th:object="${usuario}" method="post">
 	
-		<p>Nombre: <input type="text" th:field="*{username}"></p>
+		<p>Nombre: <input type="text" th:field="*{nombre}"></p>
+		
+		<p>Nombre de usuario:<input type="text" th:field="*{username}"></p>
+		
+		<p>Correo: <input type="text" th:field="*{correo}"></p>
 		
 		<p>Contraseña: <input type="password" th:field="*{password}"></p>
 		
