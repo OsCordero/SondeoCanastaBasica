@@ -2,25 +2,57 @@
 <html xmlns:layout="http://www.w3.org/1999/xhtml" layout:decorate="~{layouts/layout}">
 <body>
 	<div class="container" layout:fragment="content">
+		
 	<h1>Registrar usuario</h1>
+
 	<form action="#" th:action="@{/addusuario}" th:object="${usuario}" method="post">
 	
-		<p>Nombre: <input type="text" th:field="*{nombre}"></p>
-		
-		<p>Nombre de usuario:<input type="text" th:field="*{username}"></p>
-		
-		<p>Correo: <input type="email" th:field="*{correo}"></p>
-		
-		<p>Contraseña: <input type="password" th:field="*{password}"></p>
-		
-		<p>
-			<select name="rol_add">
-			  <option th:each="rol : ${roles}" th:text="${rol.getRol()}" th:value="${rol.getId()}"></option> 
-			</select>
-		</p>
-		
-		<p><input type="submit" value="Submit"></p>
-	</form>
+		<div class="form-group">
+		<div class="input-group">
+        <div class="input-group-prepend">
+          <div class="input-group-text">Nombre</div>
+        </div>
+        <input type="text" class="form-control" placeholder="Nombre" th:field="*{nombre}">
+	  </div>
+	  </div>
+
+	 <div class="form-group"> 
+	  <div class="input-group">
+        <div class="input-group-prepend">
+          <div class="input-group-text">Nombre de usuario</div>
+        </div>
+        <input type="text" class="form-control" placeholder="Nombre de usuario" th:field="*{username}">
+	  </div>
+	  </div>
+	 <div class="form-group"> 
+	  <div class="input-group">
+        <div class="input-group-prepend">
+          <div class="input-group-text">Correo</div>
+        </div>
+        <input type="text" class="form-control" placeholder="Correo" th:field="*{correo}">
+	  </div>
+	  </div>
+	 <div class="form-group"> 
+	  <div class="input-group">
+        <div class="input-group-prepend">
+          <div class="input-group-text">Contraseña</div>
+        </div>
+        <input type="text" class="form-control" placeholder="Contraseña" th:field="*{password}">
+	  </div>
+	  </div>
+	  <div class="input-group mb-3">
+		<div class="input-group-prepend">
+			<label class="input-group-text" for="inputGroupSelect01">Rol</label>
+		</div>
+  <select class="custom-select" id="inputGroupSelect01">
+    <option selected>Choose...</option>
+    <option th:each="rol : ${roles}" th:text="${rol.getRol()}" th:value="${rol.getId()}" ></option>
+  </select>
+  </div>
+
+  <p><input class="btn btn-primary" type="submit" value="Registrar"></p>
+  </form>
+</div>
 </div>
 </body>
 </html>
