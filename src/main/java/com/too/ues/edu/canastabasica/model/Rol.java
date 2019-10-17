@@ -7,16 +7,16 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class Rol{
+public class Rol {
 
 	@Id
-	//@GeneratedValue(strategy=GenerationType.SEQUENCE)
-	@GeneratedValue
+	// @GeneratedValue(strategy=GenerationType.SEQUENCE)
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
-	
+
 	@Column
 	private String rol;
-	
+
 	public Long getId() {
 		return id;
 	}
@@ -30,6 +30,6 @@ public class Rol{
 	}
 
 	public void setRol(String rol) {
-		this.rol= rol;
+		this.rol = rol;
 	}
 }

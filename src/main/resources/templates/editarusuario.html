@@ -3,21 +3,17 @@
 <body>
 	<div class="container" layout:fragment="content">
 	<h1>Registrar usuario</h1>
-	<form action="#" th:action="@{/addusuario}" th:object="${usuario}" method="post">
+	<form action="#" th:action="@{/updateusuario}" th:object="${usuario}" method="post">
 	
+		<input type="hidden" th:field="*{idUsuario}">
+		
 		<p>Nombre: <input type="text" th:field="*{nombre}"></p>
 		
 		<p>Nombre de usuario:<input type="text" th:field="*{username}"></p>
 		
 		<p>Correo: <input type="email" th:field="*{correo}"></p>
 		
-		<p>ContraseÃ±a: <input type="password" th:field="*{password}"></p>
-		
-		<p>
-			<select name="rol_add">
-			  <option th:each="rol : ${roles}" th:text="${rol.getRol()}" th:value="${rol.getId()}"></option> 
-			</select>
-		</p>
+		<p>Nueva contraseña: <input type="password" th:field="*{password}"></p>
 		
 		<p><input type="submit" value="Submit"></p>
 	</form>

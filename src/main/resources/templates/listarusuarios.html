@@ -10,11 +10,24 @@
 		<thead>
 			<tr>
 				<th>Nombre</th>
+				<th>Usename</th>
+				<th>Correo</th>
+				<th></th>
 			</tr>
 		</thead>
 		<tbody>
 			<tr th:each="usuario : ${usuarios}">
-				<td th:text="${usuario.username}"></td>
+				<td th:text="${usuario.getNombre()}"></td>
+				<td th:text="${usuario.getUsername()}"></td>
+				<td th:text="${usuario.getCorreo()}"></td>
+				<td>
+					<a th:href="@{/editarusuario?id=__${usuario.getIdUsuario()}__}">
+					    <button>Editar</button>
+					</a>
+					<a th:href="@{/eliminarusuario?id=__${usuario.getIdUsuario()}__}">
+					    <button>Eliminar</button>
+					</a>
+				</td>
 			</tr>
 		</tbody>
 	</table>

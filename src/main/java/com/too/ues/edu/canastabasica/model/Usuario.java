@@ -4,6 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
+import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -16,67 +17,66 @@ import com.too.ues.edu.canastabasica.model.Rol;
 
 @Entity
 public class Usuario {
-		
+
 	@Id
-	//@GeneratedValue(strategy = GenerationType.SEQUENCE)
-	@GeneratedValue
+	// @GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long idUsuario;
 
-	@Column(name= "nombre", nullable = false,length = 100)
+	@Column(name = "nombre", nullable = false, length = 100)
 	private String nombre;
-	
-	@Column(name= "correo", nullable = false,length = 100)
-	private String correo; 
-	
-	@Column(name= "username", unique = true , nullable = false,length = 45)
+
+	@Column(name = "correo", nullable = false, length = 100)
+	private String correo;
+
+	@Column(name = "username", unique = true, nullable = false, length = 45)
 	private String username;
 
-	@Column(name= "password", nullable = false,length = 60)
+	@Column(name = "password", nullable = false, length = 60)
 	private String password;
 
-	@Column(name= "enabled",nullable = false)
+	@Column(name = "enabled", nullable = false)
 	private boolean enabled;
 
 	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(name="roles_usuarios",
-	joinColumns=@JoinColumn(name="username_id"),
-	inverseJoinColumns=@JoinColumn(name="rol_id"))
+	@JoinTable(name = "roles_usuarios", joinColumns = @JoinColumn(name = "username_id"), inverseJoinColumns = @JoinColumn(name = "rol_id"))
 	private Set<Rol> rol;
-	
+
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((idUsuario == null) ? 0 :idUsuario.hashCode());
+		result = prime * result + ((idUsuario == null) ? 0 : idUsuario.hashCode());
 		return result;
-	}	
+	}
 
 	@Override
-public boolean equals(Object obj) {
-    if (this == obj)
-        return true;
-    if (obj == null)
-        return false;
-    if (getClass() != obj.getClass())
-        return false;
-    Usuario other = (Usuario) obj;
-    if (idUsuario == null) {
-        if (other.idUsuario != null)
-            return false;
-        } else if (!idUsuario.equals(other.idUsuario))
-            return false;
-        return true;
-}
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Usuario other = (Usuario) obj;
+		if (idUsuario == null) {
+			if (other.idUsuario != null)
+				return false;
+		} else if (!idUsuario.equals(other.idUsuario))
+			return false;
+		return true;
+	}
 
-@Override
-public String toString() {
-	return "Usuario [idUsuario=" + idUsuario + ", nombre=" + nombre + ", correo=" + correo + ", username=" + username
-			+ ", password=" + password + ", enabled=" + enabled + "]";
-}
+	@Override
+	public String toString() {
+		return "Usuario [idUsuario=" + idUsuario + ", nombre=" + nombre + ", correo=" + correo + ", username="
+				+ username + ", password=" + password + ", enabled=" + enabled + "]";
+	}
+
 	public Long getIdUsuario() {
 		return idUsuario;
 	}
 
-		public void setIdUsuario(Long idUsuario) {
+	public void setIdUsuario(Long idUsuario) {
 		this.idUsuario = idUsuario;
 	}
 
@@ -111,6 +111,7 @@ public String toString() {
 	public void setRol(Set<Rol> rol) {
 		this.rol = rol;
 	}
+
 	public String getNombre() {
 		return nombre;
 	}
