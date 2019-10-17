@@ -1,19 +1,17 @@
 package com.too.ues.edu.canastabasica.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-
 import java.util.HashSet;
 import java.util.Set;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-
-import com.too.ues.edu.canastabasica.model.Rol;
 
 @Entity
 public class Usuario {
@@ -108,8 +106,28 @@ public class Usuario {
 		return rol;
 	}
 
+	public Long getRolId(){
+		Long id=Long.parseLong("0");
+		Set<Rol> roles = new HashSet<Rol>();
+		roles=getRol();
+		for(Rol rol : roles){
+			id=rol.getId();	
+		}								
+		return id;
+	}
+
+	public String getRolName(){
+		String name="";
+		Set<Rol> roles = new HashSet<Rol>();
+		roles=getRol();
+		for(Rol rol : roles){
+			name=rol.getRol();	
+		}								
+		return name;
+	}
+	
 	public void setRol(Set<Rol> rol) {
-		this.rol = rol;
+		this.rol = rol;		
 	}
 
 	public String getNombre() {

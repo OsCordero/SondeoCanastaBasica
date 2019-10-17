@@ -36,7 +36,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 	}
 
 	@Override
-	public Usuario updateUsuario(Usuario usuario) {
+	public Usuario updateUsuario(Usuario usuario) {		
 		iusuarioRepo.save(usuario);
 		return null;
 	}
