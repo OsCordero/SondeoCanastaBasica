@@ -41,6 +41,7 @@ public class UsuarioController {
 	@Autowired
 	private BCryptPasswordEncoder encoder;
 
+	//No debería estar aquí este mapping, lo he puesto temporalmente (Andrés)
 	@GetMapping("/login")
 	public ModelAndView login(){
 		ModelAndView mav=new ModelAndView("login");		

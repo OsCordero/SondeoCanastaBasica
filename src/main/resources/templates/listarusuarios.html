@@ -36,52 +36,6 @@
 	</form>
 </div>
 </body>
-</html>-->
+</html>
 
 <!DOCTYPE html>
-<html xmlns:layout="http://www.w3.org/1999/xhtml" layout:decorate="~{layouts/layout}">
-<body>	
-	<div class="container" layout:fragment="content">
-	<h1>Administrar usuarios</h1>
-	<a th:href="@{/registrarusuario}">
-	    <button>Registrar usuario</button>
-	</a>
-	<table>
-		<thead>
-			<tr>
-				<th>Nombre</th>
-				<th>Username</th>
-				<th>Correo</th>
-				<th></th>
-			</tr>
-		</thead>
-		<tbody>			
-		<div th:each="rol : ${roles}">
-			<div th:swith="usuarioLogueado.getRolId()">
-				<p th:case="rol.getId">User is an administrator</p>
-			</div>
-		</div>
-		
-		
-		
-			<tr th:each="usuario : ${usuarios}">				
-				<td th:text="${usuario.getNombre()}"></td>
-				<td th:text="${usuario.getUsername()}"></td>
-				<td th:text="${usuario.getCorreo()}"></td>
-				<td>
-					<a th:href="@{/editarusuario?id=__${usuario.getIdUsuario()}__}">
-					    <button>Editar</button>
-					</a>
-					<a th:href="@{/eliminarusuario?id=__${usuario.getIdUsuario()}__}">
-					    <button>Eliminar</button>
-					</a>
-				</td>				
-			</tr>			
-		</tbody>
-	</table>
-	<form th:action="@{/app-logout}" method="POST">
-	<input class="btn btn-primary" type="submit" value="Logout"/>
-	</form>
-</div>
-</body>
-</html>

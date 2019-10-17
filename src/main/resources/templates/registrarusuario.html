@@ -44,7 +44,7 @@
 		<div class="input-group-prepend">
 			<label class="input-group-text" for="inputGroupSelect01">Rol</label>
 		</div>
-  <select class="custom-select" id="inputGroupSelect01">
+  <select class="custom-select" id="inputGroupSelect01" name="rol_add">
     <option selected>Choose...</option>
     <option th:each="rol : ${roles}" th:text="${rol.getRol()}" th:value="${rol.getId()}" ></option>
   </select>
