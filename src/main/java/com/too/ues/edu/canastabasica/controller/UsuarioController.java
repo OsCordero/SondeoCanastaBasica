@@ -1,6 +1,8 @@
 package com.too.ues.edu.canastabasica.controller;
 
+import java.awt.PageAttributes.MediaType;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.validation.*;
@@ -14,6 +16,7 @@ import com.too.ues.edu.canastabasica.servicio.UsuarioService;
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.datasource.embedded.DataSourceFactory;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -21,7 +24,10 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -59,6 +65,13 @@ public class UsuarioController {
 		mav.addObject("usuarios", usuarioService.listAllUsuarios());		
 		return mav;
 	}
+	
+	// Vista que muestra listar todos los usuarios para ajax
+	@GetMapping("/todosusuariosajax")
+	public @ResponseBody List<Usuario> todosAllUsuarios() {
+		List<Usuario> users = usuarioService.listAllUsuarios();		
+		return users;
+	}
 
 	// Vista que muestra el formulario para registrar usuario
 	@GetMapping("/registrarusuario")
@@ -77,22 +90,22 @@ public class UsuarioController {
 		mav.addObject("roles", rolService.listAllRoles());
 		return mav;
 	}
-
-	// Guardar usuario y redireccionar a listar usuarios
-	@PostMapping("/addusuario")
-	public String addUsuario(@Valid @ModelAttribute("usuario") Usuario usuario,@RequestParam(name="rol_add", required=true) String rol_id, BindingResult result) {		
-		if(result.hasErrors()){			
-			return "redirect:/registrarusuario";
-		}
+	
+	@GetMapping("/addusuario")
+	public @ResponseBody String addUsuario(@ModelAttribute("usuario") Usuario usuario, @RequestParam(name="rol_add") String rol_id) {
+		
 		long id = Long.parseLong(rol_id);
 		Rol rol = rolService.findById(id);
 		Set<Rol> roles = new HashSet<Rol>();
 		roles.add(rol);
+		
+		usuario.setPassword( encoder.encode(usuario.getPassword()) );		
 		usuario.setRol(roles);
 		usuario.setEnabled(true);		
-		usuario.setPassword(encoder.encode(usuario.getPassword()));	
+	
 		usuarioService.addUsuario(usuario);
-		return "redirect:/listarusuarios";
+			
+		return "registrado con exito";
 	}
 	
 	// Actualizar usuario y redireccionar a listar usuarios
