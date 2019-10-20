@@ -12,7 +12,8 @@
         <div class="input-group-prepend">
           <div class="input-group-text">Nombre</div>
         </div>
-        <input type="text" class="form-control" placeholder="Nombre" th:field="*{nombre}">
+        <input type="text" class="form-control" placeholder="Nombre" th:field="*{nombre}">        
+        <small th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></small>
 	  </div>
 	  </div>
 
@@ -22,6 +23,7 @@
           <div class="input-group-text">Nombre de usuario</div>
         </div>
         <input type="text" class="form-control" placeholder="Nombre de usuario" th:field="*{username}">
+        <small th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></small>
 	  </div>
 	  </div>
 	 <div class="form-group"> 
@@ -30,6 +32,7 @@
           <div class="input-group-text">Correo</div>
         </div>
         <input type="email" class="form-control" placeholder="Correo" th:field="*{correo}">
+        <small th:if="${#fields.hasErrors('correo')}" th:errors="*{correo}"></small>
 	  </div>
 	  </div>
 	 <div class="form-group"> 
@@ -38,6 +41,7 @@
           <div class="input-group-text">Contraseña</div>
         </div>
         <input type="password" class="form-control" placeholder="Contraseña" th:field="*{password}">
+        <small th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></small>
 	  </div>
 	  </div>
 	  <div class="input-group mb-3">
@@ -47,10 +51,17 @@
   <select class="custom-select" id="inputGroupSelect01" name="rol_add">
     <option selected>Choose...</option>
     <option th:each="rol : ${roles}" th:text="${rol.getRol()}" th:value="${rol.getId()}" ></option>
+    <small th:if="${#fields.hasErrors('rol')}" th:errors="*rol}"></small>
   </select>
   </div>
-
+<!--<div th:object="${usuario}" th:remove="tag">
+    <ul th:if="${#fields.hasErrors('*')}" role="alert">
+      <li th:each="error : ${#fields.errors('*')}" th:text="${error}"></li>
+    </ul>
+  </div>-->
   <p><input class="btn btn-primary" type="submit" value="Registrar"></p>
+  
+
   </form>
 </div>
 </div>

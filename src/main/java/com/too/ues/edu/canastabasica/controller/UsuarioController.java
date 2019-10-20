@@ -3,6 +3,8 @@ package com.too.ues.edu.canastabasica.controller;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.validation.*;
+
 import com.too.ues.edu.canastabasica.model.Rol;
 import com.too.ues.edu.canastabasica.model.Usuario;
 import com.too.ues.edu.canastabasica.repo.IUsuarioRepo;
@@ -15,6 +17,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.datasource.embedded.DataSourceFactory;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -77,15 +80,17 @@ public class UsuarioController {
 
 	// Guardar usuario y redireccionar a listar usuarios
 	@PostMapping("/addusuario")
-	public String addUsuario(@ModelAttribute("usuario") Usuario usuario, @RequestParam(name="rol_add", required=true) String rol_id) {
+	public String addUsuario(@Valid @ModelAttribute("usuario") Usuario usuario,@RequestParam(name="rol_add", required=true) String rol_id, BindingResult result) {		
+		if(result.hasErrors()){			
+			return "redirect:/registrarusuario";
+		}
 		long id = Long.parseLong(rol_id);
 		Rol rol = rolService.findById(id);
 		Set<Rol> roles = new HashSet<Rol>();
 		roles.add(rol);
 		usuario.setRol(roles);
-		usuario.setEnabled(true);
-		//String password = encoder.encode(usuario.getPassword());
-		usuario.setPassword(encoder.encode(usuario.getPassword()));
+		usuario.setEnabled(true);		
+		usuario.setPassword(encoder.encode(usuario.getPassword()));	
 		usuarioService.addUsuario(usuario);
 		return "redirect:/listarusuarios";
 	}

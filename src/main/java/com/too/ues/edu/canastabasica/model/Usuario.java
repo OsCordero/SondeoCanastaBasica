@@ -12,6 +12,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 @Entity
 public class Usuario {
@@ -20,17 +24,23 @@ public class Usuario {
 	// @GeneratedValue(strategy = GenerationType.SEQUENCE)
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long idUsuario;
-
+	
 	@Column(name = "nombre", nullable = false, length = 100)
+	@NotEmpty(message="El nombre es obligatorio")
 	private String nombre;
 
-	@Column(name = "correo", nullable = false, length = 100)
+	@Column(name = "correo", nullable = false, length = 100, unique=true)
+	@Pattern(regexp="^[_a-z0-9-]+(.[_a-z0-9-]+)*@[a-z0-9]+(.a-z0-9-]+)*(.[a-z]{2,4})$",message="El correo electrónico ingresado no tiene el formato correcto")	
 	private String correo;
 
-	@Column(name = "username", unique = true, nullable = false, length = 45)
+	@Column(name = "username", unique = true, nullable = false)
+	@Size(min=4,max=45, message="El username tiene que tener entre 4 y 45 caracteres")
+	@NotEmpty(message="El username es obligatorio")
 	private String username;
 
-	@Column(name = "password", nullable = false, length = 60)
+	@Column(name = "password", nullable = false)
+	//@Size(min=4,max=45, message="La contraseña tiene que tener entre 4 y 45 caracteres")
+	@NotEmpty(message="La contraseña es obligatoria")
 	private String password;
 
 	@Column(name = "enabled", nullable = false)
