@@ -16,10 +16,11 @@
 			</tr>
 		</thead>
 		<tbody>			
-			<tr th:each="usuario : ${usuarios}">				
+			<tr th:each="usuario : ${usuarios}" th:if="${usuario.enabled}">				
 				<td th:text="${usuario.getNombre()}"></td>
 				<td th:text="${usuario.getUsername()}"></td>
 				<td th:text="${usuario.getCorreo()}"></td>
+				<td th:unless="${usuario.enabled}">No habilitado</td>
 				<td class="text-center">
 					<a  class="btn btn-primary btn-sm " th:href="@{/editarusuario?id=__${usuario.getIdUsuario()}__}">
 					   Editar

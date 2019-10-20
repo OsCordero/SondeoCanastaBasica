@@ -31,12 +31,14 @@ public class UsuarioServiceImpl implements UsuarioService {
 
 	@Override
 	public int deleteUsuario(Long id) {
-		iusuarioRepo.deleteById(id);
+		Usuario usuario = this.findUsuarioById(id);
+		usuario.setEnabled(false);
+		iusuarioRepo.save(usuario);
 		return 0;
 	}
 
 	@Override
-	public Usuario updateUsuario(Usuario usuario) {		
+	public Usuario updateUsuario(Usuario usuario) {
 		iusuarioRepo.save(usuario);
 		return null;
 	}
