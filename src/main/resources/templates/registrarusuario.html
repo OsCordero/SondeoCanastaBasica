@@ -6,7 +6,7 @@
 
 		<h1>Registrar usuario</h1>
 
-		<form action="#" id="form-registrar-usuario" th:action="@{/addusuario}" th:object="${usuario}" method="post">
+		<form action="#" id="form-registrar-usuario" th:action="@{/addusuario}" th:object="${usuario}">
 
 			<div class="form-group">
 				<div class="input-group">
@@ -48,7 +48,7 @@
 				<div class="input-group-prepend">
 					<label class="input-group-text" for="inputGroupSelect01">Rol</label>
 				</div>
-				<select class="custom-select" id="inputGroupSelect01" name="rol_add"  aria-describedby="error_rol" required>
+				<select class="custom-select" name="rol_add"  aria-describedby="error_rol" required>
 					<option value="0" selected disabled>Seleccionar...</option>
 					<option th:each="rol : ${roles}" th:text="${rol.getRol()}" th:value="${rol.getId()}"></option>
 				</select>
@@ -57,6 +57,7 @@
 			<br>
 			<p>
 				<input class="btn btn-primary" type="submit" value="Registrar">
+				<input id="btn-cancelar" class="btn btn-danger" type="button" value="Cancelar">
 			</p>
 
 		</form>

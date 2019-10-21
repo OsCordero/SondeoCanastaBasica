@@ -22,10 +22,10 @@
 				<td th:text="${usuario.getCorreo()}"></td>
 				<td th:unless="${usuario.enabled}">No habilitado</td>
 				<td class="text-center">
-					<a  class="btn btn-primary btn-sm " th:href="@{/editarusuario?id=__${usuario.getIdUsuario()}__}">
+					<a  class="btn btn-primary btn-sm" th:href="@{/editarusuario?id=__${usuario.getIdUsuario()}__}">
 					   Editar
 					</a>
-					<a  class="btn btn-danger btn-sm " th:href="@{/eliminarusuario?id=__${usuario.getIdUsuario()}__}">
+					<a  class="btn btn-danger btn-sm" th:href="@{/eliminarusuario?id=__${usuario.getIdUsuario()}__}">
 					    Eliminar
 					</a>
 				</td>				
@@ -36,7 +36,8 @@
 	<input type="submit" value="Logout"/>
 	</form>
 </div>
+	<section layout:fragment="javascript-content">
+		<script src="js/listarusuarios.js"></script>
+	</section>
 </body>
 </html>
-
-<!DOCTYPE html>

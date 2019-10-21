@@ -109,12 +109,14 @@ public class UsuarioController {
 	}
 	
 	// Actualizar usuario y redireccionar a listar usuarios
-	@PostMapping("/updateusuario")
-	public String updateUsuario(@ModelAttribute("usuario") Usuario usuario,@RequestParam(name="rol_add", required=true) String rol_id){		
+	@GetMapping("/updateusuario")
+	public @ResponseBody String updateUsuario(@ModelAttribute("usuario") Usuario usuario, @RequestParam(name="rol_add") String rol_id) {
+		
 		long id = Long.parseLong(rol_id);
 		Rol rol = rolService.findById(id);
 		Set<Rol> roles = new HashSet<Rol>();
 		roles.add(rol);
+		
 		usuario.setRol(roles);
 		usuario.setEnabled(true);
 		if (usuario.getPassword() == "") {
@@ -126,7 +128,7 @@ public class UsuarioController {
 		}
 		
 		usuarioService.updateUsuario(usuario);
-		return "redirect:/listarusuarios";		
+		return "editado con éxito";		
 	}
 	
 	// Eliminar Usuario y redireccionar a listarusuario

@@ -1,25 +1,69 @@
 <!DOCTYPE html>
-<html xmlns:layout="http://www.w3.org/1999/xhtml" layout:decorate="~{layouts/layout}">
+<html xmlns:layout="http://www.w3.org/1999/xhtml"
+	layout:decorate="~{layouts/layout}">
 <body>
 	<div class="container" layout:fragment="content">
-	<h1>Editar usuario</h1>
-	<form action="#" th:action="@{/updateusuario}" th:object="${usuario}" method="post">
-	
-		<input type="hidden" th:field="*{idUsuario}">
-		
-		<p>Nombre: <input type="text" th:field="*{nombre}"></p>
-		
-		<p>Nombre de usuario:<input type="text" th:field="*{username}"></p>
-		
-		<p>Correo: <input type="email" th:field="*{correo}"></p>
-		
-		<p>Nueva contrase&ntildea: <input type="password" th:field="*{password}"></p>
 
-		<select hidden=true name="rol_add">
-			<option selected=true th:value="${usuario.getRolId()}"> </option>			
-		</select>					
-		<p><input type="submit" value="Submit"></p>
-	</form>
-</div>
+		<h1>Editar usuario</h1>
+
+		<form action="#" id="form-editar-usuario" th:action="@{/updateusuario}" th:object="${usuario}">
+			<input type="hidden" th:field="*{idUsuario}">
+			<div class="form-group">
+				<div class="input-group">
+					<div class="input-group-prepend">
+						<div class="input-group-text">Nombre</div>
+					</div>
+					<input type="text" class="form-control" placeholder="Nombre" th:field="*{nombre}">
+				</div>
+			</div>
+
+			<div class="form-group">
+				<div class="input-group">
+					<div class="input-group-prepend">
+						<div class="input-group-text">Nombre de usuario</div>
+					</div>
+					<input type="text" class="form-control" placeholder="Nombre de usuario" th:field="*{username}" aria-describedby="error_username">
+				</div>
+				<small id="error_username" class="form-text text-danger"></small>
+			</div>
+			<div class="form-group">
+				<div class="input-group">
+					<div class="input-group-prepend">
+						<div class="input-group-text">Correo</div>
+					</div>
+					<input type="email" class="form-control" placeholder="Correo" th:field="*{correo}"  aria-describedby="error_correo">
+				</div>
+				<small id="error_correo" class="form-text text-danger"></small>
+			</div>
+			<div class="form-group">
+				<div class="input-group">
+					<div class="input-group-prepend">
+						<div class="input-group-text">Contraseña</div>
+					</div>
+					<input type="password" class="form-control" placeholder="Contraseña" th:field="*{password}"  aria-describedby="error_password">
+				</div>
+				<small id="error_password" class="form-text text-danger"></small>
+			</div>
+			<div class="input-group mb-3" style="display: none;">
+				<div class="input-group-prepend">
+					<label class="input-group-text" for="inputGroupSelect01">Rol</label>
+				</div>
+				<select class="custom-select" name="rol_add"  aria-describedby="error_rol" required>
+					<option th:value="${usuario.getRolId()}" selected> </option>
+				</select>
+			</div>
+			<small id="error_rol" class="form-text text-danger"></small>
+			<br>
+			<p>
+				<input class="btn btn-primary" type="submit" value="Editar">
+				<input id="btn-cancelar" class="btn btn-danger" type="button" value="Cancelar">
+			</p>
+
+		</form>
+	</div>
+	</div>
+	<section layout:fragment="javascript-content">
+		<script src="js/editarusuario.js"></script>
+	</section>
 </body>
 </html>
