@@ -1,0 +1,17 @@
+package com.too.ues.edu.canastabasica.repo;
+
+import java.util.List;
+import java.util.Optional;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
+
+import com.too.ues.edu.canastabasica.model.SubCategoria;
+import com.too.ues.edu.canastabasica.model.Categoria;
+
+@Repository
+public interface SubCategoriaRepo extends JpaRepository<SubCategoria, Long>{
+    //List<SubCategoria> findByIdCategoria(Long idCategoria);
+    List<SubCategoria> findByCategoria(Categoria categoria);
+    //Optional<SubCategoria> findByIdAndCategoriaId(Long id, Long categoriaId);
+}

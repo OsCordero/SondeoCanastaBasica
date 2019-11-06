@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.w3.org/1999/xhtml" layout:decorate="~{layouts/layout}">
+<body>	
+	<div class="container" layout:fragment="content">
+	<h1>Administrar Categorías</h1>
+	<a  th:href="@{/ingresarcategoria}">
+	    <button class="btn btn-primary mb-4" >Ingresar categoría</button>
+	</a>
+	<table class="table table-bordered table-striped" id="dataTable" width="100%" cellspacing="0">
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>Nombre</th>
+				<th>Subcategorías</th>
+				<th style="width:150px"></th>
+			</tr>
+		</thead>
+		<tbody>			
+			<tr th:each="categoria : ${categorias}">				
+				<td th:text="${categoria.getIdCategoria()}"></td>
+				<td th:text="${categoria.getNombreCategoria()}"></td>
+				<td th:text="${categoria.getSubCategoriasToString()}"></td>				
+				<!--<td th:unless="${usuario.enabled}">No habilitado</td>-->				
+				<!--<td class="text-center">
+                    <a  class="btn btn-primary btn-sm" th:href="@{/editarusuario?id=__${usuario.getIdUsuario()}__}">					   
+                        Editar 
+                    </a>
+                    
+					<a  class="btn btn-danger btn-sm" th:href="@{/eliminarusuario?id=__${usuario.getIdUsuario()}__}">
+					    Eliminar
+					</a>
+				</td>-->
+			</tr>			
+		</tbody>
+	</table>
+</div>
+	<section layout:fragment="javascript-content">
+		<script src="js/listarusuarios.js"></script>
+	</section>
+</body>
+</html>

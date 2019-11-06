@@ -1,5 +1,8 @@
 package com.too.ues.edu.canastabasica.model;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -9,21 +12,26 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 //import javax.persistence.SequenceGenerator;
+import javax.persistence.OneToMany;
+
 
 @Entity
-public class SubCategoria{
+public class SubCategoria {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)    
-    @Column(name= "idSubCategoria", unique = true , nullable = false)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Column(name = "idSubCategoria", unique = true, nullable = false)
     private Long idSubCategoria;
-    
-    @Column(name= "nombreSubCategoria", unique = true , nullable = false,length = 50)
+
+    @Column(name = "nombreSubCategoria", unique = true, nullable = false, length = 50)
     private String nombreSubCategoria;
 
     @ManyToOne(fetch = FetchType.LAZY)
-        @JoinColumn(name="id_categoria", nullable = false)
-        private Categoria categoria;
+    @JoinColumn(name = "id_categoria", nullable = false)
+    private Categoria categoria;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "subCategoria", orphanRemoval = true)
+    private List<Producto> productos;
 
     public Long getIdSubCategoria() {
         return idSubCategoria;
@@ -47,5 +55,15 @@ public class SubCategoria{
 
     public void setCategoria(Categoria categoria) {
         this.categoria = categoria;
-    }            
+    }
+
+    public List<Producto> getProductos() {
+        return productos;
+    }
+
+    public void setProductos(List<Producto> productos) {
+        this.productos = productos;
+    }
+
+    
 }

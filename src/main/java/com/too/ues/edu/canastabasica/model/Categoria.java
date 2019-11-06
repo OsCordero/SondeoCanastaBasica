@@ -23,9 +23,7 @@ public class Categoria{
 	@Column(name= "nombreCategoria", unique = true , nullable = false,length = 50)
     private String nombreCategoria;
     
-    @OneToMany(cascade=CascadeType.ALL,
-    fetch=FetchType.EAGER,
-    mappedBy= "categoria")
+    @OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER, mappedBy= "categoria", orphanRemoval=true)
     private List<SubCategoria> subCategorias;
 
     public Long getIdCategoria() {
@@ -46,6 +44,22 @@ public class Categoria{
 
     public List<SubCategoria> getSubCategorias() {
         return subCategorias;
+    }
+
+    public String getSubCategoriasToString(){
+        String cadena="";        
+        List<SubCategoria> subCategorias=getSubCategorias();        
+        for(SubCategoria subCategoria:subCategorias){
+            cadena=cadena+subCategoria.getNombreSubCategoria();
+            if(subCategorias.size()>1){
+                cadena=cadena+", ";
+            }            
+        }
+                
+        if(cadena.endsWith(" ")){
+            cadena=cadena.substring(0,cadena.length()-2);
+        }
+        return cadena;
     }
 
     public void setSubCategorias(List<SubCategoria> subCategorias) {

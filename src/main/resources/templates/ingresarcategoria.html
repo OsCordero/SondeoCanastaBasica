@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.w3.org/1999/xhtml"
+	layout:decorate="~{layouts/layout}">
+<body>
+	<div class="container" layout:fragment="content">
+
+		<h1>Ingresar categoría</h1>
+
+		<form action="#" id="form-registrar-usuario" th:action="@{/addcategoria}" th:object="${categoria}">
+
+			<div class="form-group">
+				<div class="input-group">
+					<div class="input-group-prepend">
+						<div class="input-group-text">Nombre</div>
+					</div>
+					<input type="text" class="form-control" placeholder="Nombre categoría" th:field="*{nombreCategoria}" required>
+				</div>
+			</div>												
+			<br>
+			<p>
+				<input class="btn btn-primary" type="submit" value="Ingresar">
+				<!--<input id="btn-cancelar" class="btn btn-danger" type="button" value="Cancelar">-->
+			</p>
+		</form>
+	</div>
+	</div>
+	<section layout:fragment="javascript-content">
+		<!--<script src="js/registrarusuario.js"></script>-->
+	</section>
+</body>
+</html>

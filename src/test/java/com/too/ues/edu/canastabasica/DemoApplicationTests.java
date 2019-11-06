@@ -7,6 +7,10 @@ import com.too.ues.edu.canastabasica.repo.RolRepo;
 import com.too.ues.edu.canastabasica.servicio.RolService;
 import com.too.ues.edu.canastabasica.servicio.UsuarioService;
 
+/*-----*/
+import com.too.ues.edu.canastabasica.model.Categoria;
+import com.too.ues.edu.canastabasica.repo.CategoriaRepo;
+
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -28,6 +32,9 @@ public class DemoApplicationTests {
 	
 	@Autowired
 	private RolRepo repoR;
+
+	@Autowired
+	private CategoriaRepo categoriaRepo;
 	
 	@Autowired
 	@Qualifier("rolServiceImpl")
@@ -87,4 +94,14 @@ public class DemoApplicationTests {
 		
 	}
 
+	@Test
+	public void createCategorias(){
+		Categoria cateUno= new Categoria();
+		cateUno.setNombreCategoria("Categoria Prueba Uno");
+		categoriaRepo.save(cateUno);
+
+		Categoria cateDos= new Categoria();
+		cateDos.setNombreCategoria("Categoria Prueba Dos");
+		categoriaRepo.save(cateDos);
+	}
 }
