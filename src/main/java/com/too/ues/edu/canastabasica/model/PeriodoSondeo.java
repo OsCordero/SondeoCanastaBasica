@@ -1,7 +1,6 @@
 package com.too.ues.edu.canastabasica.model;
 
-import java.util.List;
-
+import java.sql.Date;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,7 +12,7 @@ import javax.persistence.OneToOne;
 
 import com.too.ues.edu.canastabasica.model.*;
 
-import oracle.sql.DATE;//EXISTEN OTROS TIPOS DATE, HAY QUE TENER CUIDADO
+//import oracle.sql.Date;//EXISTEN OTROS TIPOS Date, HAY QUE TENER CUIDADO
 //docs.oracle.com/cd/B19306_01/java.102/b14188/datamap.htm
 
 @Entity
@@ -28,10 +27,10 @@ public class PeriodoSondeo{
     String nombrePeriodo;
 
     @Column(name = "fechaInicio", unique = true, nullable = false)
-    DATE fechaInicio;
-
+    Date fechaInicio;
+    
     @Column(name = "fechaFin", unique = true, nullable = false)
-    DATE fechaFin;
+    Date fechaFin;
 
     @Column(name = "finalizado", nullable = true)
     private boolean finalizado;
@@ -52,19 +51,19 @@ public class PeriodoSondeo{
         this.nombrePeriodo = nombrePeriodo;
     }
 
-    public DATE getFechaInicio() {
+    public Date getFechaInicio() {
         return fechaInicio;
     }
 
-    public void setFechaInicio(DATE fechaInicio) {
+    public void setFechaInicio(Date fechaInicio) {
         this.fechaInicio = fechaInicio;
     }
 
-    public DATE getFechaFin() {
+    public Date getFechaFin() {
         return fechaFin;
     }
 
-    public void setFechaFin(DATE fechaFin) {
+    public void setFechaFin(Date fechaFin) {
         this.fechaFin = fechaFin;
     }
 

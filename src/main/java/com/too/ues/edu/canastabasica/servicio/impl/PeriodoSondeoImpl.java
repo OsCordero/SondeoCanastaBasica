@@ -5,11 +5,10 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import com.too.ues.edu.canastabasica.model.PeriodoSondeo;
-import com.too.ues.edu.canastabasica.model.Usuario;
 import com.too.ues.edu.canastabasica.repo.PeriodoSondeoRepo;
 import com.too.ues.edu.canastabasica.servicio.PeriodoSondeoService;
 
-@Service("PeriodoSondeoServiceImpl")
+@Service("periodoSondeoImpl")
 public class PeriodoSondeoImpl implements PeriodoSondeoService{
 
 	@Autowired
