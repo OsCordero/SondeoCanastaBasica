@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.w3.org/1999/xhtml" layout:decorate="~{layouts/layout}">
+<body>	
+	<div class="container" layout:fragment="content">
+	<h2>Administrar periodos</h2>
+	<a  th:href="@{/registrarperiodo}">
+	    <button class="btn btn-primary mb-4" >Registrar periodo</button>
+	</a>
+	<table class="table table-bordered table-striped" id="dataTable" width="100%" cellspacing="0">
+		<thead>
+			<tr>
+				<th>Nombre</th>
+				<th>Desde</th>
+                <th>Hasta</th>
+                <th>Estado</th>
+				<th style="width:150px"></th>
+			</tr>
+		</thead>
+		<tbody>			
+			<tr th:each="periodo : ${periodos}">				
+				<td th:text="${periodo.getNombrePeriodo()}"></td>
+				<td th:text="${periodo.getFechaInicio()}"></td>
+                <td th:text="${periodo.getFechaFin()}"></td>
+                <td th:text="${periodo.isFinalizado()}? 'Terminado': 'En curso'"></td>
+				<td class="text-center">
+					<a  th:classappend="${periodo.isFinalizado()}?'disabled':''"class="btn btn-info btn-sm " th:href="@{/finalizarperiodo?id=__${periodo.getIdPeriodo()}__}">
+                        <i class="fas fa-hourglass-end"></i> Finalizar periodo
+					</a>
+				</td>				
+			</tr>			
+		</tbody>
+	</table>
+</div>
+	<section layout:fragment="javascript-content">
+		<script src="js/listarusuarios.js"></script>
+	</section>
+</body>
+</html>

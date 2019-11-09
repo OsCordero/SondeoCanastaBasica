@@ -12,6 +12,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -32,22 +33,32 @@ public class PeriodoSondeoController {
 	private PeriodoSondeoRepo repo;
 
 
-    // Vista que muestra el formulario para registrar usuario
+	@GetMapping("/listarperiodos")
+	public ModelAndView listAllPeriodos() {
+		ModelAndView mav = new ModelAndView("periodoSondeo/listarperiodos");
+		// mav.addObject("course", new Course());		
+		mav.addObject("periodos", periodoSondeoService.listAllPeriodos());		
+		return mav;
+	}
+    // Vista que muestra el formulario para registrar periodo
 	@GetMapping("/registrarperiodo")
 	public ModelAndView createPeriodoSondeo() {
-		ModelAndView mav = new ModelAndView("registrarperiodo");
+		ModelAndView mav = new ModelAndView("periodoSondeo/registrarperiodo");
 		mav.addObject("periodo", new PeriodoSondeo());
 		return mav;
     }
     
     @GetMapping("/addperiodo")
 	public @ResponseBody String addPeriodo(@ModelAttribute("periodo") PeriodoSondeo periodo) {
-		
-		periodo.setFinalizado(true);		
-	
+		periodo.setFinalizado(false);		
 		periodoSondeoService.addPeriodoSondeo(periodo);
-			
 		return "registrado con exito";
+	}
+
+	@GetMapping("/finalizarperiodo")
+	public @ResponseBody String finalizarPeriodo(@RequestParam(name="id") Long id) {
+		periodoSondeoService.finalizarPeriodo(id);
+		return "editado con éxito";		
 	}
     
 }
