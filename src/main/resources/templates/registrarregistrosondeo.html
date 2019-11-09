@@ -38,16 +38,35 @@
 
             <div class="input-group mb-3">
 				<div class="input-group-prepend">
-					<label class="input-group-text" for="inputGroupSelect01">Establecimiento</label>
+					<label class="input-group-text" for="inputGroupSelect01">Departamento</label>
 				</div>
-				<select class="custom-select" name="establecimiento_add"  aria-describedby="error_establecimiento" required>
+				<select class="custom-select" name="departamento"  aria-describedby="error_establecimiento" required>
 					<option value="0" selected disabled>Seleccionar...</option>
-					<option th:each="establecimiento : ${listaEstablecimientos}" th:text="${establecimiento.getNombreEstablecimiento()}" th:value="${establecimiento.getIdEstablecimiento()}"></option>
-                </select>
-                <small id="error_rol" class="form-text text-danger"></small>    
+					<option th:each="departamento : ${listaDepartamentos}" th:text="${departamento.getNombreDepartamento()}" th:value="${departamento.getIdDepartamento()}"></option>
+                </select>                    
 			</div>
 			<small id="error_rol" class="form-text text-danger"></small><!--¿No debería estar una línea arriba?-->
 
+
+			<div class="input-group mb-3">
+				<div class="input-group-prepend">
+					<label class="input-group-text" for="inputGroupSelect01">Municipio</label>
+				</div>
+				<select class="custom-select" name="municipio"  aria-describedby="error_municipio" required>
+					<option value="0" selected disabled>Seleccionar...</option>					
+                </select>                    
+			</div>
+			<small id="error_rol" class="form-text text-danger"></small><!--¿No debería estar una línea arriba?-->
+
+			<div class="input-group mb-3">
+				<div class="input-group-prepend">
+					<label class="input-group-text" for="inputGroupSelect01">Establecimiento</label>
+				</div>
+				<select class="custom-select" name="establecimiento_add"  aria-describedby="error_establecimiento" required>
+					<option value="0" selected disabled>Seleccionar...</option>					
+                </select>                    
+			</div>
+			<small id="error_rol" class="form-text text-danger"></small><!--¿No debería estar una línea arriba?-->
 
 			<div class="form-group">
 				<div class="input-group">

@@ -9,16 +9,21 @@ import javax.validation.*;
 
 import com.too.ues.edu.canastabasica.model.RegistroSondeo;
 import com.too.ues.edu.canastabasica.model.Producto;
+import com.too.ues.edu.canastabasica.model.Departamento;
+import com.too.ues.edu.canastabasica.model.Municipio;
 import com.too.ues.edu.canastabasica.model.Establecimiento;
 import com.too.ues.edu.canastabasica.model.PeriodoSondeo;
 import com.too.ues.edu.canastabasica.repo.RegistroSondeoRepo;
 import com.too.ues.edu.canastabasica.repo.ProductoRepo;
 import com.too.ues.edu.canastabasica.repo.EstablecimientoRepo;
 import com.too.ues.edu.canastabasica.repo.PeriodoSondeoRepo;
+import com.too.ues.edu.canastabasica.repo.DepartamentoRepo;
 import com.too.ues.edu.canastabasica.servicio.RegistroSondeoService;
 import com.too.ues.edu.canastabasica.servicio.ProductoService;
 import com.too.ues.edu.canastabasica.servicio.EstablecimientoService;
 import com.too.ues.edu.canastabasica.servicio.PeriodoSondeoService;
+import com.too.ues.edu.canastabasica.servicio.DepartamentoService;
+import com.too.ues.edu.canastabasica.servicio.MunicipioService;
 
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +31,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.datasource.embedded.DataSourceFactory;
 import org.springframework.stereotype.Controller;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -33,9 +39,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-@Controller
+@RestController
 public class RegistroSondeoController {
 	    
 	@Autowired
@@ -53,6 +60,11 @@ public class RegistroSondeoController {
     @Autowired
     @Qualifier("periodoSondeoImpl")
     private PeriodoSondeoService periodoSondeoService;
+
+    @Autowired
+    @Qualifier("departamentoImpl")
+    private DepartamentoService departamentoService;
+    
 
     /*@Autowired
 	@Qualifier("rolServiceImpl")
@@ -93,6 +105,14 @@ public class RegistroSondeoController {
     }*/
     
 
+    @GetMapping("/todosmunicipiosajax")
+	public @ResponseBody List<Municipio> listaMunicipios(Departamento departamento) {		
+        //municipio
+        //return MunicipioService;
+        return null;
+    }
+
+
 	// Vista que muestra el formulario para registrar usuario
 	@GetMapping("/registrarregistrosondeo")
 	public ModelAndView createRegistroSondeo() {
@@ -101,11 +121,12 @@ public class RegistroSondeoController {
         List<Producto> productos= productoService.listAllProducto();
         mav.addObject("listaProductos", productos);
 
-        List<Establecimiento> establecimientos=establecimientoService.listAllEstablecimiento();
-        mav.addObject("listaEstablecimientos", establecimientos);
+        List<Departamento> departamentos=departamentoService.listAllDepartamentos();
+        mav.addObject("listaDepartamentos", departamentos);
 
         List<PeriodoSondeo> periodoSondeos=periodoSondeoRepo.findAll();
         mav.addObject("listaPeriodoSondeo", periodoSondeos);
+
         //objeto de interés 
 		mav.addObject("registroSondeo", new RegistroSondeo());
 		return mav;
@@ -122,11 +143,12 @@ public class RegistroSondeoController {
         
         Producto producto= productoService.findProductoById(idProducto);
         
-        Establecimiento establecimiento= establecimientoService.findEstablecimientoById(idEstablecimiento);
+        //Establecimiento establecimiento= establecimientoService.findEstablecimientoById(idEstablecimiento);
 
         registroSondeo.setPeriodoSondeo(periodoSondeo);
         registroSondeo.setProducto(producto);
-        registroSondeo.setEstablecimiento(establecimiento);
+        //registroSondeo.setEstablecimiento(establecimiento);
+        
         //Aqui lo seteo a la fuerza
         registroSondeo.setPeso("2");
         registroSondeo.setPrecio("3");
@@ -149,3 +171,4 @@ public class RegistroSondeoController {
     
     
 }
+
