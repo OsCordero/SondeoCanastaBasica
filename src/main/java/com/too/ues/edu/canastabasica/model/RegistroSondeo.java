@@ -5,11 +5,14 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.Embeddable;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
@@ -18,9 +21,8 @@ import com.too.ues.edu.canastabasica.model.*;
 import oracle.sql.NUMBER;//TENER CUIDADO
 //docs.oracle.com/cd/B19306_01/java.102/b14188/datamap.htm
 
-
-
 @Entity
+@IdClass(RegistroSondeoId.class)
 public class RegistroSondeo implements Serializable {
 
     /**
@@ -29,10 +31,10 @@ public class RegistroSondeo implements Serializable {
     private static final long serialVersionUID = 7166766826581845126L;
 
     @Column(name = "precio", unique = false, nullable = false, length = 6, precision = 2)
-    NUMBER precio;
+    String precio;
 
     @Column(name = "peso", unique = false, nullable = false)
-    NUMBER peso;
+    String peso;
 
     @Id
     @OneToOne
@@ -53,19 +55,19 @@ public class RegistroSondeo implements Serializable {
         return serialVersionUID;
     }
 
-    public NUMBER getPrecio() {
+    public String getPrecio() {
         return precio;
     }
 
-    public void setPrecio(NUMBER precio) {
+    public void setPrecio(String precio) {
         this.precio = precio;
     }
 
-    public NUMBER getPeso() {
+    public String getPeso() {
         return peso;
     }
 
-    public void setPeso(NUMBER peso) {
+    public void setPeso(String peso) {
         this.peso = peso;
     }
 

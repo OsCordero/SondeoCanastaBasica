@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.w3.org/1999/xhtml"
+	layout:decorate="~{layouts/layout}">
+<body>
+	<div class="container" layout:fragment="content">
+
+		<h1>Registrar Precio Sondeo</h1>
+
+		<form action="#" id="form-registrar-usuario" th:action="@{/addregistrosondeo}" th:object="${registroSondeo}">			
+			
+			
+			<div class="input-group mb-3">
+				<div class="input-group-prepend">
+					<label class="input-group-text" for="inputGroupSelect01">Periodo</label>
+				</div>
+				<select class="custom-select" name="periodo_add"  aria-describedby="error_periodo" required>
+					<option value="0" selected disabled>Seleccionar...</option>
+					<option th:each="periodo : ${listaPeriodoSondeo}" th:text="${periodo.getNombrePeriodo()}" th:value="${periodo.getIdPeriodo()}"></option>
+                </select>
+                <!--<small id="error_rol" class="form-text text-danger"></small>-->
+			</div>
+			<small id="error_rol" class="form-text text-danger"></small><!--¿No debería estar una línea arriba?-->
+            
+
+            <div class="input-group mb-3">
+				<div class="input-group-prepend">
+					<label class="input-group-text" for="inputGroupSelect01">Producto</label>
+				</div>
+				<select class="custom-select" name="producto_add"  aria-describedby="error_producto" required>
+					<option value="0" selected disabled>Seleccionar...</option>
+					<option th:each="producto : ${listaProductos}" th:text="${producto.getNombreProducto()}" th:value="${producto.getIdProducto()}"></option>
+                </select>
+                <!--<small id="error_rol" class="form-text text-danger"></small>-->
+			</div>
+			<small id="error_rol" class="form-text text-danger"></small><!--¿No debería estar una línea arriba?-->
+            
+
+
+            <div class="input-group mb-3">
+				<div class="input-group-prepend">
+					<label class="input-group-text" for="inputGroupSelect01">Establecimiento</label>
+				</div>
+				<select class="custom-select" name="establecimiento_add"  aria-describedby="error_establecimiento" required>
+					<option value="0" selected disabled>Seleccionar...</option>
+					<option th:each="establecimiento : ${listaEstablecimientos}" th:text="${establecimiento.getNombreEstablecimiento()}" th:value="${establecimiento.getIdEstablecimiento()}"></option>
+                </select>
+                <small id="error_rol" class="form-text text-danger"></small>    
+			</div>
+			<small id="error_rol" class="form-text text-danger"></small><!--¿No debería estar una línea arriba?-->
+
+
+			<div class="form-group">
+				<div class="input-group">
+					<div class="input-group-prepend">
+						<div class="input-group-text">Precio</div>
+					</div>
+					<input type="text" class="form-control" placeholder="Precio" th:field="*{precio}" required>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<div class="input-group">
+					<div class="input-group-prepend">
+						<div class="input-group-text">Peso</div>
+					</div>
+					<input type="text" class="form-control" placeholder="Peso" th:field="*{peso}" aria-describedby="error_username" required>
+				</div>
+				<small id="error_username" class="form-text text-danger"></small>
+            </div>
+            
+
+
+            
+            <br>
+			<p>
+				<input class="btn btn-primary" type="submit" value="Registrar">
+				<input id="btn-cancelar" class="btn btn-danger" type="button" value="Cancelar">
+			</p>
+
+		</form>
+	</div>
+	</div>
+	<section layout:fragment="javascript-content">
+		<!--<script src="js/registrarusuario.js"></script>-->
+	</section>
+</body>
+</html>
