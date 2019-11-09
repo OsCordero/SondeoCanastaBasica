@@ -28,5 +28,10 @@ public class EstablecimientoImpl implements EstablecimientoService {
 	public List<Establecimiento> listAllEstablecimientosByMunicipio(Municipio municipio) {		
 		return establecimientoRepo.findByMunicipio(municipio);
 	}
+
+	@Override
+	public Establecimiento findEstablecimientoById(Long idEstablecimiento) {		
+		return establecimientoRepo.getOne(idEstablecimiento);
+	}
     
 }

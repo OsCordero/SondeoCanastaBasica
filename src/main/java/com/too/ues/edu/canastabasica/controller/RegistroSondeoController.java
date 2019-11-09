@@ -62,7 +62,7 @@ public class RegistroSondeoController {
     private PeriodoSondeoService periodoSondeoService;
 
     @Autowired
-    @Qualifier("departamentoImpl")
+    @Qualifier("departamentoServiceImpl")
     private DepartamentoService departamentoService;
     
 

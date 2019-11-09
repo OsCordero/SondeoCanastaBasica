@@ -9,5 +9,5 @@ public interface EstablecimientoService {
 	
 	public abstract List<Establecimiento> listAllEstablecimiento();	
 	public abstract List<Establecimiento> listAllEstablecimientosByMunicipio(Municipio municipio);	
-
+	public abstract Establecimiento findEstablecimientoById(Long idEstablecimiento);
 }
