@@ -1,14 +1,22 @@
 package com.too.ues.edu.canastabasica.controller;
 
 import java.awt.PageAttributes.MediaType;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Set;
 
 import javax.validation.*;
 
 import com.too.ues.edu.canastabasica.model.RegistroSondeo;
+import com.too.ues.edu.canastabasica.model.Rol;
 import com.too.ues.edu.canastabasica.model.Producto;
+import com.fasterxml.jackson.core.JsonFactory;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.too.ues.edu.canastabasica.model.Departamento;
 import com.too.ues.edu.canastabasica.model.Municipio;
 import com.too.ues.edu.canastabasica.model.Establecimiento;
@@ -19,15 +27,20 @@ import com.too.ues.edu.canastabasica.repo.EstablecimientoRepo;
 import com.too.ues.edu.canastabasica.repo.PeriodoSondeoRepo;
 import com.too.ues.edu.canastabasica.repo.DepartamentoRepo;
 import com.too.ues.edu.canastabasica.servicio.RegistroSondeoService;
+import com.too.ues.edu.canastabasica.servicio.RolService;
 import com.too.ues.edu.canastabasica.servicio.ProductoService;
 import com.too.ues.edu.canastabasica.servicio.EstablecimientoService;
 import com.too.ues.edu.canastabasica.servicio.PeriodoSondeoService;
 import com.too.ues.edu.canastabasica.servicio.DepartamentoService;
 import com.too.ues.edu.canastabasica.servicio.MunicipioService;
 
+import org.apache.tomcat.util.json.JSONParser;
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.jackson.JsonObjectSerializer;
+import org.springframework.boot.json.JsonParserFactory;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.datasource.embedded.DataSourceFactory;
 import org.springframework.stereotype.Controller;
@@ -65,10 +78,14 @@ public class RegistroSondeoController {
     @Qualifier("departamentoServiceImpl")
     private DepartamentoService departamentoService;
     
+    @Autowired
+    @Qualifier("municipioServiceImpl")
+    private MunicipioService municipioService;
+    
 
-    /*@Autowired
+    @Autowired
 	@Qualifier("rolServiceImpl")
-	private RolService rolService;*/
+	private RolService rolService;
 
 	@Autowired
     private RegistroSondeoRepo registroSondeoRepo;
@@ -103,14 +120,46 @@ public class RegistroSondeoController {
 		List<Usuario> users = usuarioService.listAllUsuarios();		
         return users;        
     }*/
-    
-
-    @GetMapping("/todosmunicipiosajax")
-	public @ResponseBody List<Municipio> listaMunicipios(Departamento departamento) {		
-        //municipio
-        //return MunicipioService;
-        return null;
-    }
+	
+	@GetMapping("/todosmunicipiosajax")
+	public List<Municipio> listarMunicipios(@RequestParam(name="departamento_id") String departamento_id) {
+		
+		long dpto_id = Long.parseLong(departamento_id);
+		Departamento departamento = departamentoService.findById(dpto_id);
+		
+		List<Municipio> municipios_completos = municipioService.listAllMunicipiosByDepartamento(departamento);
+		
+		List<Municipio> municipios = new ArrayList<Municipio>();
+		
+		for (Municipio municipio : municipios_completos) {
+			Municipio municipio_pasar = new Municipio();
+			municipio_pasar.setIdMunicipio(municipio.getIdMunicipio());
+			municipio_pasar.setNombreMunicipio(municipio.getNombreMunicipio());
+			municipios.add(municipio_pasar);
+		}
+		
+		return municipios;
+	}
+	
+	@GetMapping("/todosestablecimientossajax")
+	public List<Establecimiento> listarEstablecimientos(@RequestParam(name="municipio_id") String municipio_id) {
+		
+		long mnp_id = Long.parseLong(municipio_id);
+		Municipio municipio = municipioService.findById(mnp_id);
+		
+		List<Establecimiento> establecimientos_completos = establecimientoRepo.findByMunicipio(municipio);
+		
+		List<Establecimiento> establecimientos = new ArrayList<Establecimiento>();
+		
+		for (Establecimiento establecimiento : establecimientos_completos) {
+			Establecimiento establecimiento_pasar = new Establecimiento();
+			establecimiento_pasar.setIdEstablecimiento(establecimiento.getIdEstablecimiento());
+			establecimiento_pasar.setNombreEstablecimiento(establecimiento.getNombreEstablecimiento());
+			establecimientos.add(establecimiento_pasar);
+		}
+		
+		return establecimientos;
+	}
 
 
 	// Vista que muestra el formulario para registrar usuario

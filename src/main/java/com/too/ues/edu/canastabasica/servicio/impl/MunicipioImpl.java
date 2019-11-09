@@ -1,6 +1,5 @@
 package com.too.ues.edu.canastabasica.servicio.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,8 +21,18 @@ public class MunicipioImpl implements MunicipioService {
 	private MunicipioRepo municipioRepo;
 	
 	@Override
+	public List<Municipio> listAllMunicipios() {
+		return municipioRepo.findAll();
+	}
+	
+	@Override
 	public List<Municipio> listAllMunicipiosByDepartamento(Departamento departamento){
         return municipioRepo.findByDepartamento(departamento);
+	}
+
+	@Override
+	public Municipio findById(Long id) {
+		return municipioRepo.getOne(id);
 	}
 	
 }

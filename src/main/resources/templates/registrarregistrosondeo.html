@@ -40,7 +40,7 @@
 				<div class="input-group-prepend">
 					<label class="input-group-text" for="inputGroupSelect01">Departamento</label>
 				</div>
-				<select class="custom-select" name="departamento"  aria-describedby="error_establecimiento" required>
+				<select id="select-departamento" class="custom-select" name="departamento"  aria-describedby="error_establecimiento" required>
 					<option value="0" selected disabled>Seleccionar...</option>
 					<option th:each="departamento : ${listaDepartamentos}" th:text="${departamento.getNombreDepartamento()}" th:value="${departamento.getIdDepartamento()}"></option>
                 </select>                    
@@ -52,8 +52,8 @@
 				<div class="input-group-prepend">
 					<label class="input-group-text" for="inputGroupSelect01">Municipio</label>
 				</div>
-				<select class="custom-select" name="municipio"  aria-describedby="error_municipio" required>
-					<option value="0" selected disabled>Seleccionar...</option>					
+				<select id="select-municipio" class="custom-select" name="municipio"  aria-describedby="error_municipio" required>
+					<option value="0" selected disabled>Seleccionar...</option>	
                 </select>                    
 			</div>
 			<small id="error_rol" class="form-text text-danger"></small><!--¿No debería estar una línea arriba?-->
@@ -62,8 +62,8 @@
 				<div class="input-group-prepend">
 					<label class="input-group-text" for="inputGroupSelect01">Establecimiento</label>
 				</div>
-				<select class="custom-select" name="establecimiento_add"  aria-describedby="error_establecimiento" required>
-					<option value="0" selected disabled>Seleccionar...</option>					
+				<select id="select-establecimiento" class="custom-select" name="establecimiento_add"  aria-describedby="error_establecimiento" required>
+					<option value="0" selected disabled>Seleccionar...</option>			
                 </select>                    
 			</div>
 			<small id="error_rol" class="form-text text-danger"></small><!--¿No debería estar una línea arriba?-->
@@ -100,7 +100,7 @@
 	</div>
 	</div>
 	<section layout:fragment="javascript-content">
-		<!--<script src="js/registrarusuario.js"></script>-->
+		<script src="js/registrar_registro_sondeo.js"></script>
 	</section>
 </body>
 </html>

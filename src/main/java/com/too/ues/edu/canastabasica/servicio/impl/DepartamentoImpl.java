@@ -1,6 +1,5 @@
 package com.too.ues.edu.canastabasica.servicio.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,4 +22,8 @@ public class DepartamentoImpl implements DepartamentoService {
 		return departamentoRepo.findAll();
 	}
 	
+	@Override
+	public Departamento findById(Long id) {
+		return departamentoRepo.getOne(id);
+	}
 }

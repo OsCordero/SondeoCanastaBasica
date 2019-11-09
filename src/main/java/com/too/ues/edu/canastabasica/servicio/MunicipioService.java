@@ -7,5 +7,7 @@ import com.too.ues.edu.canastabasica.model.Departamento;
 
 public interface MunicipioService {
 	
+	public abstract List<Municipio> listAllMunicipios();
 	public abstract List<Municipio> listAllMunicipiosByDepartamento(Departamento departamento);
+	public abstract Municipio findById(Long id);
 }
