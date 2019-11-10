@@ -1,5 +1,6 @@
 package com.too.ues.edu.canastabasica.model;
 
+import java.util.List;
 import java.sql.Date;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -8,9 +9,9 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 
-import com.too.ues.edu.canastabasica.model.*;
+import com.too.ues.edu.canastabasica.model.RegistroSondeo;
 
 //import oracle.sql.Date;//EXISTEN OTROS TIPOS Date, HAY QUE TENER CUIDADO
 //docs.oracle.com/cd/B19306_01/java.102/b14188/datamap.htm
@@ -34,6 +35,9 @@ public class PeriodoSondeo{
 
     @Column(name = "finalizado", nullable = true)
     private boolean finalizado;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "periodoSondeo", orphanRemoval = true)
+    private List<RegistroSondeo> registroSondeos;
 
     public Long getIdPeriodo() {
         return idPeriodo;

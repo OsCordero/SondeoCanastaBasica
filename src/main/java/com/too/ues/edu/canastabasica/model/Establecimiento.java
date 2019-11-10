@@ -10,10 +10,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
-import com.too.ues.edu.canastabasica.model.*;
+import com.too.ues.edu.canastabasica.model.Municipio;
+import com.too.ues.edu.canastabasica.model.RegistroSondeo;
 
 @Entity
 public class Establecimiento{
@@ -29,6 +30,9 @@ public class Establecimiento{
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_municipio", nullable = false)
     private Municipio municipio;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "establecimiento", orphanRemoval = true)
+    private List<RegistroSondeo> registroSondeos;
 
     public Long getIdEstablecimiento() {
         return idEstablecimiento;
@@ -54,5 +58,13 @@ public class Establecimiento{
         this.municipio = municipio;
     }
 
-    
+    public List<RegistroSondeo> getRegistroSondeos() {
+        return registroSondeos;
+    }
+
+    public void setRegistroSondeos(List<RegistroSondeo> registroSondeos) {
+        this.registroSondeos = registroSondeos;
+    }
+
+       
 }

@@ -42,8 +42,11 @@ public class Producto{
         @JoinColumn(name="id_medida", referencedColumnName = "idMedida",nullable = false),
         @JoinColumn(name="nombre_medida", referencedColumnName = "nombreMedida",nullable = false),
         @JoinColumn(name="abreviatura", referencedColumnName = "abreviatura",nullable = false)
-    })    
+    })        
     private UnidadMedida unidadMedida;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "producto", orphanRemoval = true)
+    private List<RegistroSondeo> registroSondeos;
 
     public Long getIdProducto() {
         return idProducto;
@@ -92,6 +95,14 @@ public class Producto{
     public void setUnidadMedida(UnidadMedida unidadMedida) {
         this.unidadMedida = unidadMedida;
     }
- 
-    
+
+    public List<RegistroSondeo> getRegistroSondeos() {
+        return registroSondeos;
+    }
+
+    public void setRegistroSondeos(List<RegistroSondeo> registroSondeos) {
+        this.registroSondeos = registroSondeos;
+    }
+
+       
 }

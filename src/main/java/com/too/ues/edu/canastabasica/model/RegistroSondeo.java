@@ -1,29 +1,24 @@
 package com.too.ues.edu.canastabasica.model;
 
-import java.io.Serializable;
-
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 
-import com.too.ues.edu.canastabasica.model.*;
+import com.too.ues.edu.canastabasica.model.Establecimiento;
+import com.too.ues.edu.canastabasica.model.PeriodoSondeo;
+import com.too.ues.edu.canastabasica.model.Producto;
 
-import oracle.sql.NUMBER;//TENER CUIDADO
+
 //docs.oracle.com/cd/B19306_01/java.102/b14188/datamap.htm
 
 @Entity
 @IdClass(RegistroSondeoId.class)
-public class RegistroSondeo implements Serializable {
-
-    /**
-     *
-     */
-    private static final long serialVersionUID = 7166766826581845126L;
-
+public class RegistroSondeo {
+        
     @Column(name = "precio", unique = false, nullable = false, length = 6, precision = 2)
     Float precio;
 
@@ -31,23 +26,19 @@ public class RegistroSondeo implements Serializable {
     Float peso;
 
     @Id
-    @OneToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="id_producto", nullable=false)    
     private Producto producto;
     
     @Id
-    @OneToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="id_periodo", nullable=false)    
     private PeriodoSondeo periodoSondeo;
 
     @Id
-    @OneToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="id_establecimiento",nullable=false)
-    private Establecimiento establecimiento;
-
-    public static long getSerialversionuid() {
-        return serialVersionUID;
-    }
+    private Establecimiento establecimiento;    
 
     public Float getPrecio() {
         return precio;

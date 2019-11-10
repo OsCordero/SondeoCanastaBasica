@@ -95,13 +95,9 @@ public class DemoApplicationTests {
 	}
 
 	@Test
-	public void createCategorias(){
+	public void createCategoriasSubCategorias(){
 		Categoria cateUno= new Categoria();
 		cateUno.setNombreCategoria("Categoria Prueba Uno");
-		categoriaRepo.save(cateUno);
-
-		Categoria cateDos= new Categoria();
-		cateDos.setNombreCategoria("Categoria Prueba Dos");
-		categoriaRepo.save(cateDos);
+		categoriaRepo.save(cateUno);		
 	}
 }

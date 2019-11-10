@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.too.ues.edu.canastabasica.model.Categoria;
 
-@Repository
+@Repository("CategoriaRepo")
 public interface CategoriaRepo extends JpaRepository<Categoria, Long>{
     
 }
