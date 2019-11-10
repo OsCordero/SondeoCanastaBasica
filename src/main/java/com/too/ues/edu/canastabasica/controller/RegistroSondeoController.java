@@ -1,22 +1,12 @@
 package com.too.ues.edu.canastabasica.controller;
 
-import java.awt.PageAttributes.MediaType;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
-import java.util.Set;
 
 import javax.validation.*;
 
 import com.too.ues.edu.canastabasica.model.RegistroSondeo;
-import com.too.ues.edu.canastabasica.model.Rol;
 import com.too.ues.edu.canastabasica.model.Producto;
-import com.fasterxml.jackson.core.JsonFactory;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.too.ues.edu.canastabasica.model.Departamento;
 import com.too.ues.edu.canastabasica.model.Municipio;
 import com.too.ues.edu.canastabasica.model.Establecimiento;
@@ -174,7 +164,13 @@ public class RegistroSondeoController {
         mav.addObject("listaDepartamentos", departamentos);
 
         List<PeriodoSondeo> periodoSondeos=periodoSondeoRepo.findAll();
-        mav.addObject("listaPeriodoSondeo", periodoSondeos);
+        List<PeriodoSondeo> periodoSondeosHabilitados= new ArrayList<>();
+        for(PeriodoSondeo periodo:periodoSondeos){
+            if(periodo.isFinalizado()==false){
+                periodoSondeosHabilitados.add(periodo);
+            }
+        }
+        mav.addObject("listaPeriodoSondeo", periodoSondeosHabilitados);
 
         //objeto de interés 
 		mav.addObject("registroSondeo", new RegistroSondeo());
@@ -183,38 +179,20 @@ public class RegistroSondeoController {
 			
 	@GetMapping("/addregistrosondeo")
 	public @ResponseBody String addRegistroSondeo(@ModelAttribute("registroSondeo") RegistroSondeo registroSondeo, @RequestParam(name="periodo_add") String periodo_id, @RequestParam(name="producto_add") String producto_id,@RequestParam(name="establecimiento_add") String establecimiento_id) {
-            
-        long idPeriodo= Long.parseLong(periodo_id);
-        long idProducto=Long.parseLong(producto_id);
-        long idEstablecimiento=Long.parseLong(establecimiento_id);
-
-        PeriodoSondeo periodoSondeo = periodoSondeoRepo.getOne(idPeriodo);
+    
+        PeriodoSondeo periodoSondeo = periodoSondeoRepo.getOne(Long.parseLong(periodo_id));
         
-        Producto producto= productoService.findProductoById(idProducto);
+        Producto producto= productoService.findProductoById(Long.parseLong(producto_id));
         
-        //Establecimiento establecimiento= establecimientoService.findEstablecimientoById(idEstablecimiento);
+        Establecimiento establecimiento= establecimientoService.findEstablecimientoById(Long.parseLong(establecimiento_id));
 
         registroSondeo.setPeriodoSondeo(periodoSondeo);
         registroSondeo.setProducto(producto);
-        //registroSondeo.setEstablecimiento(establecimiento);
+        registroSondeo.setEstablecimiento(establecimiento);
         
-        //Aqui lo seteo a la fuerza
-        registroSondeo.setPeso("2");
-        registroSondeo.setPrecio("3");
+        //Aqui lo seteo a la fuerza        
 
-        registroSondeoService.addRegistroSondeo(registroSondeo);
-        /*long id = Long.parseLong(rol_id);
-		Rol rol = rolService.findById(id);
-		Set<Rol> roles = new HashSet<Rol>();
-		roles.add(rol);
-		
-		usuario.setPassword( encoder.encode(usuario.getPassword()) );		
-		usuario.setRol(roles);
-		usuario.setEnabled(true);		
-	
-        usuarioService.addUsuario(usuario);
-        return "redirect:/listarregistrosondeos"        
-        */			
+        registroSondeoService.addRegistroSondeo(registroSondeo);        
 		return "registrado con exito";
 	}
     

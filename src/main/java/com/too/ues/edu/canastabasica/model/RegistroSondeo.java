@@ -1,16 +1,10 @@
 package com.too.ues.edu.canastabasica.model;
 
 import java.io.Serializable;
-import java.util.List;
 
-import javax.persistence.CascadeType;
+
 import javax.persistence.Column;
-import javax.persistence.Embeddable;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
@@ -31,10 +25,10 @@ public class RegistroSondeo implements Serializable {
     private static final long serialVersionUID = 7166766826581845126L;
 
     @Column(name = "precio", unique = false, nullable = false, length = 6, precision = 2)
-    String precio;
+    Float precio;
 
     @Column(name = "peso", unique = false, nullable = false)
-    String peso;
+    Float peso;
 
     @Id
     @OneToOne
@@ -55,19 +49,19 @@ public class RegistroSondeo implements Serializable {
         return serialVersionUID;
     }
 
-    public String getPrecio() {
+    public Float getPrecio() {
         return precio;
     }
 
-    public void setPrecio(String precio) {
+    public void setPrecio(Float precio) {
         this.precio = precio;
     }
 
-    public String getPeso() {
+    public Float getPeso() {
         return peso;
     }
 
-    public void setPeso(String peso) {
+    public void setPeso(Float peso) {
         this.peso = peso;
     }
 

@@ -73,7 +73,7 @@
 					<div class="input-group-prepend">
 						<div class="input-group-text">Precio</div>
 					</div>
-					<input type="text" class="form-control" placeholder="Precio" th:field="*{precio}" required>
+					<input type="number" step="0.01" min="0.00" class="form-control" placeholder="Precio" th:field="*{precio}" required>
 				</div>
 			</div>
 
@@ -82,7 +82,7 @@
 					<div class="input-group-prepend">
 						<div class="input-group-text">Peso</div>
 					</div>
-					<input type="text" class="form-control" placeholder="Peso" th:field="*{peso}" aria-describedby="error_username" required>
+					<input type="number" step="0.01" min="0.00" class="form-control" placeholder="Peso" th:field="*{peso}" aria-describedby="error_username" required>					
 				</div>
 				<small id="error_username" class="form-text text-danger"></small>
             </div>
