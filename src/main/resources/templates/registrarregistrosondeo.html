@@ -20,20 +20,7 @@
                 <!--<small id="error_rol" class="form-text text-danger"></small>-->
 			</div>
 			<small id="error_rol" class="form-text text-danger"></small><!--¿No debería estar una línea arriba?-->
-            
-
-            <div class="input-group mb-3">
-				<div class="input-group-prepend">
-					<label class="input-group-text" for="inputGroupSelect01">Producto</label>
-				</div>
-				<select class="custom-select" name="producto_add"  aria-describedby="error_producto" required>
-					<option value="0" selected disabled>Seleccionar...</option>
-					<option th:each="producto : ${listaProductos}" th:text="${producto.getNombreProducto()}" th:value="${producto.getIdProducto()}"></option>
-                </select>
-                <!--<small id="error_rol" class="form-text text-danger"></small>-->
-			</div>
-			<small id="error_rol" class="form-text text-danger"></small><!--¿No debería estar una línea arriba?-->
-            
+                       
 
 
             <div class="input-group mb-3">
@@ -52,7 +39,7 @@
 				<div class="input-group-prepend">
 					<label class="input-group-text" for="inputGroupSelect01">Municipio</label>
 				</div>
-				<select id="select-municipio" class="custom-select" name="municipio"  aria-describedby="error_municipio" required>
+				<select id="select-municipio" class="custom-select" name="municipio"  aria-describedby="error_municipio" disabled required>
 					<option value="0" selected disabled>Seleccionar...</option>	
                 </select>                    
 			</div>
@@ -62,12 +49,47 @@
 				<div class="input-group-prepend">
 					<label class="input-group-text" for="inputGroupSelect01">Establecimiento</label>
 				</div>
-				<select id="select-establecimiento" class="custom-select" name="establecimiento_add"  aria-describedby="error_establecimiento" required>
+				<select id="select-establecimiento" class="custom-select" name="establecimiento_add"  aria-describedby="error_establecimiento" disabled required>
 					<option value="0" selected disabled>Seleccionar...</option>			
                 </select>                    
 			</div>
 			<small id="error_rol" class="form-text text-danger"></small><!--¿No debería estar una línea arriba?-->
 
+
+
+			<div class="input-group mb-3">
+				<div class="input-group-prepend">
+					<label class="input-group-text" for="inputGroupSelect01">Categor�a</label>
+				</div>
+				<select id="select-categoria" class="custom-select" name="categoria"  aria-describedby="error_categoria" required>
+					<option value="0" selected disabled>Seleccionar...</option>
+					<option th:each="categoria : ${listaCategoria}" th:text="${categoria.getNombreCategoria()}" th:value="${categoria.getIdCategoria()}"></option>
+                </select>
+                <!--<small id="error_rol" class="form-text text-danger"></small>-->
+			</div>
+			<small id="error_categoria" class="form-text text-danger"></small><!--¿No debería estar una línea arriba?-->
+			
+			<div class="input-group mb-3">
+				<div class="input-group-prepend">
+					<label class="input-group-text" for="inputGroupSelect01">Subcategor�a</label>
+				</div>
+				<select id="select-subcategoria" class="custom-select" name="subcategoria_add"  aria-describedby="error_subcategoria" disabled required>
+					<option value="0" selected disabled>Seleccionar...</option>			
+                </select>                    
+			</div>
+			<small id="error_rol" class="form-text text-danger"></small><!--¿No debería estar una línea arriba?-->
+			
+			<div class="input-group mb-3">
+				<div class="input-group-prepend">
+					<label class="input-group-text" for="inputGroupSelect01">Producto</label>
+				</div>
+				<select id="select-producto" class="custom-select" name="producto_add"  aria-describedby="error_producto" disabled required>
+					<option value="0" selected disabled>Seleccionar...</option>			
+                </select>                    
+			</div>
+			<small id="error_rol" class="form-text text-danger"></small><!--¿No debería estar una línea arriba?-->
+			
+			
 			<div class="form-group">
 				<div class="input-group">
 					<div class="input-group-prepend">

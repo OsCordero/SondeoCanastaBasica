@@ -13,7 +13,7 @@ import javax.persistence.OneToMany;
 import com.too.ues.edu.canastabasica.model.SubCategoria;
 
 @Entity
-public class Categoria{
+public class Categoria {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)    

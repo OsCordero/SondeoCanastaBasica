@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import com.too.ues.edu.canastabasica.model.Producto;
+import com.too.ues.edu.canastabasica.model.SubCategoria;
 import com.too.ues.edu.canastabasica.repo.ProductoRepo;
 import com.too.ues.edu.canastabasica.servicio.ProductoService;
 
@@ -45,6 +46,12 @@ public class ProductoImpl implements ProductoService {
 	@Override
 	public Producto findProductoById(Long id) {
 		return productoRepo.getOne(id);
+	}
+
+	@Override
+	public List<Producto> listAllProductosBySubCategoria(SubCategoria subcategoria) {
+		// TODO Auto-generated method stub
+		return productoRepo.findBySubCategoria(subcategoria);
 	}
 	
 }

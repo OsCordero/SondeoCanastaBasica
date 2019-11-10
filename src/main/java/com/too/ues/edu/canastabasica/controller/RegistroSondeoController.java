@@ -6,7 +6,9 @@ import java.util.List;
 import javax.validation.*;
 
 import com.too.ues.edu.canastabasica.model.RegistroSondeo;
+import com.too.ues.edu.canastabasica.model.SubCategoria;
 import com.too.ues.edu.canastabasica.model.Producto;
+import com.too.ues.edu.canastabasica.model.Categoria;
 import com.too.ues.edu.canastabasica.model.Departamento;
 import com.too.ues.edu.canastabasica.model.Municipio;
 import com.too.ues.edu.canastabasica.model.Establecimiento;
@@ -15,12 +17,15 @@ import com.too.ues.edu.canastabasica.repo.RegistroSondeoRepo;
 import com.too.ues.edu.canastabasica.repo.ProductoRepo;
 import com.too.ues.edu.canastabasica.repo.EstablecimientoRepo;
 import com.too.ues.edu.canastabasica.repo.PeriodoSondeoRepo;
+import com.too.ues.edu.canastabasica.repo.CategoriaRepo;
 import com.too.ues.edu.canastabasica.repo.DepartamentoRepo;
 import com.too.ues.edu.canastabasica.servicio.RegistroSondeoService;
 import com.too.ues.edu.canastabasica.servicio.RolService;
+import com.too.ues.edu.canastabasica.servicio.SubCategoriaService;
 import com.too.ues.edu.canastabasica.servicio.ProductoService;
 import com.too.ues.edu.canastabasica.servicio.EstablecimientoService;
 import com.too.ues.edu.canastabasica.servicio.PeriodoSondeoService;
+import com.too.ues.edu.canastabasica.servicio.CategoriaService;
 import com.too.ues.edu.canastabasica.servicio.DepartamentoService;
 import com.too.ues.edu.canastabasica.servicio.MunicipioService;
 
@@ -60,6 +65,14 @@ public class RegistroSondeoController {
     @Qualifier("establecimientoServiceImpl")
     private EstablecimientoService establecimientoService;
 
+    @Autowired
+    @Qualifier("categoriaServiceImpl")
+    private CategoriaService categoriaService;
+    
+    @Autowired
+    @Qualifier("subCategoriaServiceImpl")
+    private SubCategoriaService subcategoriaService;
+    
     @Autowired
     @Qualifier("periodoSondeoImpl")
     private PeriodoSondeoService periodoSondeoService;
@@ -151,14 +164,56 @@ public class RegistroSondeoController {
 		return establecimientos;
 	}
 
+	@GetMapping("/todossubcategoriasajax")
+	public List<SubCategoria> listarSubcategoria(@RequestParam(name="categoria_id") String categoria_id) {
+		
+		long cat_id = Long.parseLong(categoria_id);
+		Categoria categoria = categoriaService.findById(cat_id);
+		
+		List<SubCategoria> subcategoria_completos = subcategoriaService.listAllSubCategoriasByCategoria(categoria);
+		//List<SubCategoria> subcategoria_completos = subcategoriaService.listAllSubCategorias();
+		
+		List<SubCategoria> subcategorias = new ArrayList<SubCategoria>();
+		
+		for (SubCategoria subcategoria : subcategoria_completos) {
+			SubCategoria subcategoria_pasar = new SubCategoria();
+			subcategoria_pasar.setIdSubCategoria(subcategoria.getIdSubCategoria());
+			subcategoria_pasar.setNombreSubCategoria(subcategoria.getNombreSubCategoria());
+			subcategorias.add(subcategoria_pasar);
+		}
+		
+		return subcategorias;
+	}
 
+	
+	@GetMapping("/todosproductosajax")
+	public List<Producto> listarProductos(@RequestParam(name="subcategoria_id") String subcategoria_id) {
+		
+		long sbcat_id = Long.parseLong(subcategoria_id);
+		SubCategoria subcategoria = subcategoriaService.findById(sbcat_id);
+		
+		List<Producto> productos_completos = productoService.listAllProductosBySubCategoria(subcategoria);
+		
+		List<Producto> productos = new ArrayList<Producto>();
+		
+		for (Producto producto : productos_completos) {
+			Producto producto_pasar = new Producto();
+			producto_pasar.setIdProducto(producto.getIdProducto());
+			producto_pasar.setNombreProducto(producto.getNombreProducto());
+			productos.add(producto_pasar);
+		}
+		
+		return productos;
+	}
+	
 	// Vista que muestra el formulario para registrar usuario
 	@GetMapping("/registrarregistrosondeo")
 	public ModelAndView createRegistroSondeo() {
         ModelAndView mav = new ModelAndView("registrarregistrosondeo");		
         /* mandamos a llamar los productos,establecimientos y periodoso*/
-        List<Producto> productos= productoService.listAllProducto();
-        mav.addObject("listaProductos", productos);
+        //List<Producto> productos= productoService.listAllProducto();
+        List<Categoria> listaCategoria = categoriaService.listAllCategorias();
+        mav.addObject("listaCategoria", listaCategoria);
 
         List<Departamento> departamentos=departamentoService.listAllDepartamentos();
         mav.addObject("listaDepartamentos", departamentos);

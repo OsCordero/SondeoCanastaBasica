@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import com.too.ues.edu.canastabasica.model.Categoria;
 import com.too.ues.edu.canastabasica.model.SubCategoria;
 import com.too.ues.edu.canastabasica.repo.SubCategoriaRepo;
 import com.too.ues.edu.canastabasica.servicio.SubCategoriaService;
@@ -25,5 +26,10 @@ public class SubCategoriaImpl implements SubCategoriaService {
 	@Override
 	public SubCategoria findById(Long id) {
 		return subCategoriaRepo.getOne(id);
+	}
+
+	@Override
+	public List<SubCategoria> listAllSubCategoriasByCategoria(Categoria categoria) {
+		return subCategoriaRepo.findByCategoria(categoria);
 	}
 }
