@@ -6,7 +6,7 @@
 
 		<h2>Registrar periodo</h2>
 
-		<form class="mt-4"action="#" id="form-registrar-usuario" th:action="@{/addperiodo}" th:object="${periodo}">
+		<form class="mt-4"action="#" id="form-registrar-periodo" th:action="@{/addperiodo}" th:object="${periodo}">
 
 			<div class="form-group">
 				<div class="input-group">
@@ -26,7 +26,7 @@
 					</div>
 					<input type="date" class="form-control" placeholder="Fecha de inicio" th:field="*{fechaInicio}" aria-describedby="error_username" required>
 				</div>
-				<small id="error_username" class="form-text text-danger"></small>
+				<small id="error_fechaInicio" class="form-text text-danger"></small>
 			</div>
 			<div class="form-group col-sm">
 				<div class="input-group">
@@ -35,7 +35,7 @@
 					</div>
 					<input type="date" class="form-control" placeholder="Fecha de fin" th:field="*{fechaFin}"  aria-describedby="error_correo" required>
 				</div>
-				<small id="error_correo" class="form-text text-danger"></small>
+				<small id="error_fechaFin" class="form-text text-danger"></small>
             </div>
         </div>
 			
@@ -49,7 +49,7 @@
 	</div>
 	</div>
 	<section layout:fragment="javascript-content">
-	
+		<script src="js/registrarperiodosondeo.js"></script>
 	</section>
 </body>
 </html>
