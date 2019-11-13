@@ -18,6 +18,8 @@ public class MvcConfig implements WebMvcConfigurer {
 
         //Vistas de periodo de sondeo
         registry.addViewController("/registrarperiodo").setViewName("registrarperiodo");
+        
+        
         registry.addViewController("/logout").setViewName("login");
     }
 }

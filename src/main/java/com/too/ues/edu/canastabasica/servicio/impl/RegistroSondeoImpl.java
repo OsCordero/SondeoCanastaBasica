@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import com.too.ues.edu.canastabasica.model.Rol;
+import com.too.ues.edu.canastabasica.model.PeriodoSondeo;
+import com.too.ues.edu.canastabasica.model.Producto;
 import com.too.ues.edu.canastabasica.model.RegistroSondeo;
 import com.too.ues.edu.canastabasica.repo.RegistroSondeoRepo;
 import com.too.ues.edu.canastabasica.servicio.RegistroSondeoService;
@@ -48,5 +50,19 @@ public class RegistroSondeoImpl implements RegistroSondeoService {
 	public RegistroSondeo findRegistroSondeoById(Long id) {
 		return registroSondeoRepo.getOne(id);
 	}
+
+	@Override
+	public List<RegistroSondeo> listAllRegistroSondeoByPeriodoSondeo(PeriodoSondeo periodoSondeo) {
+		// TODO Auto-generated method stub
+		return registroSondeoRepo.findByPeriodoSondeo(periodoSondeo);
+	}
+
+	@Override
+	public RegistroSondeo findByPeriodoSondeoAndProducto(PeriodoSondeo periodoSondeo, Producto producto) {
+		// TODO Auto-generated method stub
+		return registroSondeoRepo.findByPeriodoSondeoAndProducto(periodoSondeo,producto);
+	}
+	
+	
 	
 }

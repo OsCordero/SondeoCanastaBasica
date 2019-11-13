@@ -42,6 +42,7 @@ import org.springframework.stereotype.Controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -250,7 +251,62 @@ public class RegistroSondeoController {
         registroSondeoService.addRegistroSondeo(registroSondeo);        
 		return "registrado con exito";
 	}
+	
+	@GetMapping("/listarperiodosondeo")
+	public ModelAndView listAllPeriodos() {
+        ModelAndView mav = new ModelAndView("registroSondeo/listarProductoSondeo");	
     
-    
+        List<PeriodoSondeo> periodoSondeos=periodoSondeoRepo.findAll();
+        List<PeriodoSondeo> periodoSondeosHabilitados= new ArrayList<>();
+        for(PeriodoSondeo periodo:periodoSondeos){
+            if(periodo.isFinalizado()==false){
+                periodoSondeosHabilitados.add(periodo);
+            }
+        }
+        mav.addObject("listaPeriodoSondeo", periodoSondeosHabilitados);
+        mav.addObject("registroSondeo", periodoSondeoService.listAllPeriodos());
+		return mav;
+	}
+	
+	
+	
+	@GetMapping("/registrossondeos")
+	public ModelAndView listAllRegistroSondeoByPeriodoSondeo(@RequestParam(name="periodo_id") String periodo_id) {
+        ModelAndView mav = new ModelAndView("registroSondeo/listarRegistroSondeo");
+        long sbcat_id = Long.parseLong(periodo_id);
+		PeriodoSondeo periodoSondeo = periodoSondeoService.findById(sbcat_id);
+		
+		List<RegistroSondeo> registro_sondeo = registroSondeoService.listAllRegistroSondeoByPeriodoSondeo(periodoSondeo);
+		
+		List<RegistroSondeo> sondeos = new ArrayList<RegistroSondeo>();
+		
+		for (RegistroSondeo sondeo : registro_sondeo) {
+			RegistroSondeo sondeo_pasar = new RegistroSondeo();
+			sondeo_pasar.setPrecio(sondeo.getPrecio());
+			sondeo_pasar.setPeso(sondeo.getPeso());
+			sondeo_pasar.setEstablecimiento(sondeo.getEstablecimiento());
+			sondeo_pasar.setProducto(sondeo.getProducto());
+			sondeos.add(sondeo_pasar);
+		}
+		
+		mav.addObject("listaRegistroSondeo", sondeos);
+		mav.addObject("periodo", periodoSondeo);
+        mav.addObject("registroSondeo", registroSondeoService.listAllRegistroSondeoByPeriodoSondeo(periodoSondeo));
+		return mav;
+        
+	}
+	
+	@GetMapping("/eliminarregistro/{periodo_id}/{producto_id}")
+    public String eliminar(@PathVariable(value="periodo_id") Long idPeriodo, @PathVariable(value="producto_id") Long idProducto) {
+	
+		PeriodoSondeo periodoSondeo = periodoSondeoService.findById(idPeriodo);
+		Producto producto= productoService.findProductoById(idProducto);
+		RegistroSondeo registro = registroSondeoService.findByPeriodoSondeoAndProducto(periodoSondeo, producto);
+		registroSondeoRepo.delete(registro);
+
+        return "Eliminado con exito";
+    }
+	
+	
 }
 
