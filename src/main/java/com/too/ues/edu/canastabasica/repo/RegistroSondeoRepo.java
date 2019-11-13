@@ -9,10 +9,13 @@ import org.springframework.stereotype.Repository;
 import com.too.ues.edu.canastabasica.model.PeriodoSondeo;
 import com.too.ues.edu.canastabasica.model.Producto;
 import com.too.ues.edu.canastabasica.model.RegistroSondeo;
+import com.too.ues.edu.canastabasica.model.Establecimiento;
+
 
 @Repository("RegistroSondeoRepo")
 public interface RegistroSondeoRepo extends JpaRepository<RegistroSondeo, Long>{
 
 	List<RegistroSondeo> findByPeriodoSondeo(PeriodoSondeo periodoSondeo);
 	RegistroSondeo findByPeriodoSondeoAndProducto(PeriodoSondeo periodoSondeo, Producto producto);
+	RegistroSondeo findByPeriodoSondeoAndEstablecimientoAndProducto(PeriodoSondeo periodoSondeo, Establecimiento establecimiento, Producto producto);
 }

@@ -245,8 +245,7 @@ public class RegistroSondeoController {
         registroSondeo.setPeriodoSondeo(periodoSondeo);
         registroSondeo.setProducto(producto);
         registroSondeo.setEstablecimiento(establecimiento);
-        
-        //Aqui lo seteo a la fuerza        
+                      
 
         registroSondeoService.addRegistroSondeo(registroSondeo);        
 		return "registrado con exito";
@@ -305,8 +304,36 @@ public class RegistroSondeoController {
 		registroSondeoRepo.delete(registro);
 
         return "Eliminado con exito";
-    }
+	}
 	
-	
+	// Vista que muestra el formulario para registrar usuario
+	@GetMapping("/editarregistro/{periodo_id}/{establecimiento_id}/{producto_id}")
+	public ModelAndView actualizarRegistroSondeo(@PathVariable(value="periodo_id") Long idPeriodo, @PathVariable(value="establecimiento_id") Long idEstablecimiento, @PathVariable(value="producto_id") Long idProducto) {
+        ModelAndView mav = new ModelAndView("registroSondeo/editarRegistroSondeo");
+		PeriodoSondeo periodoSondeo= periodoSondeoService.findById(idPeriodo);
+		Establecimiento establecimiento= establecimientoService.findEstablecimientoById(idEstablecimiento);
+		Producto producto= productoService.findProductoById(idProducto);		
+		RegistroSondeo registroSondeo=registroSondeoRepo.findByPeriodoSondeoAndEstablecimientoAndProducto(periodoSondeo, establecimiento, producto);
+		System.out.println(registroSondeo.toString());
+        //objeto de interés 
+		mav.addObject("registroSondeo", registroSondeo);
+		return mav;
+	}
+			
+	@GetMapping("/updateregistrosondeo")
+	public @ResponseBody String updateRegistroSondeo(@ModelAttribute("registroSondeo") RegistroSondeo registroSondeo, @RequestParam(name="periodo_add") String periodo_id, @RequestParam(name="producto_add") String producto_id,@RequestParam(name="establecimiento_add") String establecimiento_id) {
+			
+		PeriodoSondeo periodoSondeo = periodoSondeoRepo.getOne(Long.parseLong(periodo_id));
+			
+		Producto producto= productoService.findProductoById(Long.parseLong(producto_id));
+		
+		Establecimiento establecimiento= establecimientoService.findEstablecimientoById(Long.parseLong(establecimiento_id));	
+		registroSondeo.setPeriodoSondeo(periodoSondeo);
+		registroSondeo.setProducto(producto);
+		registroSondeo.setEstablecimiento(establecimiento);
+        registroSondeoService.updateRegistroSondeo(registroSondeo);
+		return "actualizado con exito";		
+	}	
+		
 }
 

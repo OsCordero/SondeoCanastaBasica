@@ -104,5 +104,8 @@ public class Producto{
         this.registroSondeos = registroSondeos;
     }
 
+    public String getDatos(){
+        return getNombreProducto()+" - "+getMarca().getNombreMarca()+" - "+getPresentacion()+" - "+getUnidadMedida().getAbreviatura();        
+    }
        
 }
