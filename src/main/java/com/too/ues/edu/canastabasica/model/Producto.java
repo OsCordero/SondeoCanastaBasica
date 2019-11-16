@@ -102,10 +102,5 @@ public class Producto{
 
     public void setRegistroSondeos(List<RegistroSondeo> registroSondeos) {
         this.registroSondeos = registroSondeos;
-    }
-
-    public String getDatos(){
-        return getNombreProducto()+" - "+getMarca().getNombreMarca()+" - "+getPresentacion()+" - "+getUnidadMedida().getAbreviatura();        
-    }
-       
+    }       
 }

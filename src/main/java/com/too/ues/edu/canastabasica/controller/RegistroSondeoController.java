@@ -307,8 +307,8 @@ public class RegistroSondeoController {
 	}
 	
 	// Vista que muestra el formulario para registrar usuario
-	@GetMapping("/editarregistro/{periodo_id}/{establecimiento_id}/{producto_id}")
-	public ModelAndView actualizarRegistroSondeo(@PathVariable(value="periodo_id") Long idPeriodo, @PathVariable(value="establecimiento_id") Long idEstablecimiento, @PathVariable(value="producto_id") Long idProducto) {
+	@GetMapping("/editarregistro")
+	public ModelAndView actualizarRegistroSondeo(@RequestParam(name="periodo_id") Long idPeriodo, @RequestParam(name="establecimiento_id") Long idEstablecimiento, @RequestParam(name="producto_id") Long idProducto) {
         ModelAndView mav = new ModelAndView("registroSondeo/editarRegistroSondeo");
 		PeriodoSondeo periodoSondeo= periodoSondeoService.findById(idPeriodo);
 		Establecimiento establecimiento= establecimientoService.findEstablecimientoById(idEstablecimiento);
@@ -322,7 +322,7 @@ public class RegistroSondeoController {
 			
 	@GetMapping("/updateregistrosondeo")
 	public @ResponseBody String updateRegistroSondeo(@ModelAttribute("registroSondeo") RegistroSondeo registroSondeo, @RequestParam(name="periodo_add") String periodo_id, @RequestParam(name="producto_add") String producto_id,@RequestParam(name="establecimiento_add") String establecimiento_id) {
-			
+		
 		PeriodoSondeo periodoSondeo = periodoSondeoRepo.getOne(Long.parseLong(periodo_id));
 			
 		Producto producto= productoService.findProductoById(Long.parseLong(producto_id));

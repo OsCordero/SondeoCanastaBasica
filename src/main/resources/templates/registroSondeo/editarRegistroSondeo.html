@@ -1,13 +1,12 @@
 <!DOCTYPE html>
-<html xmlns:layout="http://www.w3.org/1999/xhtml"
-	layout:decorate="~{layouts/layout}">
+<html xmlns:layout="http://www.w3.org/1999/xhtml" layout:decorate="~{layouts/layout}">
 <body>
 	<div class="container" layout:fragment="content">
 
 		<h1>Editar Precio Sondeo</h1>
 		<h2 th:text=${registroSondeo.getPeriodoSondeo().getNombrePeriodo()}></h2>
 		<h2 th:text=${registroSondeo.getEstablecimiento().getNombreEstablecimiento()}></h2>		
-		<h2 th:text="${registroSondeo.getProducto().getDatos()}"></h2>
+		<h2 th:text="${registroSondeo.getProducto().getNombreProducto() + ' - ' + registroSondeo.getProducto().getMarca().getNombreMarca() + ' - ' + registroSondeo.getProducto().getPresentacion() + ' - ' + registroSondeo.getProducto().getUnidadMedida().getAbreviatura()}"></h2>
 
 		<form action="#" id="form-registrar-usuario" th:action="@{/updateregistrosondeo}" th:object="${registroSondeo}">			
 						
@@ -65,7 +64,7 @@
 	</div>
 	</div>
 	<section layout:fragment="javascript-content">
-		<script src="js/registrar_registro_sondeo.js"></script>
+		<script src="js/editar_registro_sondeo.js"></script>
 	</section>
 </body>
 </html>
