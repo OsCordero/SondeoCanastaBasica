@@ -1,5 +1,15 @@
 $(document).ready(function() {
 	//alert("Hola mundo!");
+	
+    if($.urlParam("save") == 1) {
+        Swal.fire(
+          'Sondeo:',
+          "Registrado con éxito!",
+          'success'
+        ).then(function(){
+            window.location.href = "/registrossondeos?periodo_id="+$.urlParam("periodo_id");
+        });
+    }
 })
 
 // Funcion al detectar cambio de opcion en el select departamento
@@ -149,3 +159,12 @@ $(document).on("change", "#select-municipio", function() {
         });
     });
 });
+
+//Función para saber el valor de los parametros get
+$.urlParam = function(name){
+    var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+    if (results==null) {
+        return null;
+    }
+    return decodeURI(results[1]) || 0;
+}

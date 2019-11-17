@@ -234,7 +234,7 @@ public class RegistroSondeoController {
 	}
 			
 	@GetMapping("/addregistrosondeo")
-	public @ResponseBody String addRegistroSondeo(@ModelAttribute("registroSondeo") RegistroSondeo registroSondeo, @RequestParam(name="periodo_add") String periodo_id, @RequestParam(name="producto_add") String producto_id,@RequestParam(name="establecimiento_add") String establecimiento_id) {
+	public @ResponseBody ModelAndView addRegistroSondeo(@ModelAttribute("registroSondeo") RegistroSondeo registroSondeo, @RequestParam(name="periodo_add") String periodo_id, @RequestParam(name="producto_add") String producto_id,@RequestParam(name="establecimiento_add") String establecimiento_id) {
     
         PeriodoSondeo periodoSondeo = periodoSondeoRepo.getOne(Long.parseLong(periodo_id));
         
@@ -248,7 +248,7 @@ public class RegistroSondeoController {
                       
 
         registroSondeoService.addRegistroSondeo(registroSondeo);        
-		return "registrado con exito";
+        return new ModelAndView ("redirect:/registrarregistrosondeo?periodo_id="+periodo_id+"&save=1");
 	}
 	
 	@GetMapping("/listarperiodosondeo")
@@ -321,7 +321,7 @@ public class RegistroSondeoController {
 	}
 			
 	@GetMapping("/updateregistrosondeo")
-	public @ResponseBody String updateRegistroSondeo(@ModelAttribute("registroSondeo") RegistroSondeo registroSondeo, @RequestParam(name="periodo_add") String periodo_id, @RequestParam(name="producto_add") String producto_id,@RequestParam(name="establecimiento_add") String establecimiento_id) {
+	public @ResponseBody ModelAndView updateRegistroSondeo(@ModelAttribute("registroSondeo") RegistroSondeo registroSondeo, @RequestParam(name="periodo_add") String periodo_id, @RequestParam(name="producto_add") String producto_id,@RequestParam(name="establecimiento_add") String establecimiento_id) {
 		
 		PeriodoSondeo periodoSondeo = periodoSondeoRepo.getOne(Long.parseLong(periodo_id));
 			
@@ -332,7 +332,7 @@ public class RegistroSondeoController {
 		registroSondeo.setProducto(producto);
 		registroSondeo.setEstablecimiento(establecimiento);
         registroSondeoService.updateRegistroSondeo(registroSondeo);
-		return "actualizado con exito";		
+		return new ModelAndView ("redirect:/editarregistro?periodo_id="+periodo_id+"&establecimiento_id="+establecimiento_id+"&producto_id="+producto_id+"&save=1");		
 	}	
 		
 }

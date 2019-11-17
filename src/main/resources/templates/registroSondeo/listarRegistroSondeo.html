@@ -37,7 +37,7 @@
 					<a class="btn btn-info btn-sm " th:href="@{/eliminarregistro/}+${periodo.getIdPeriodo()}+@{/}+${sondeo.getProducto().getIdProducto()}">
                         <i class="fas fa-hourglass-end"></i> Eliminar registro
 					</a>
-					<a class="btn btn-info btn-sm " th:href="@{/editarregistro/}+${periodo.getIdPeriodo()}+@{/}+${sondeo.getEstablecimiento().getIdEstablecimiento()}+@{/}+${sondeo.getProducto().getIdProducto()}">
+					<a class="btn btn-info btn-sm " th:href="@{/editarregistro?periodo_id=}+${periodo.getIdPeriodo()}+@{&establecimiento_id=}+${sondeo.getEstablecimiento().getIdEstablecimiento()}+@{&producto_id=}+${sondeo.getProducto().getIdProducto()}">
                         <i class="fas fa-hourglass-end"></i> Editar registro
 					</a>
 				</td>				
