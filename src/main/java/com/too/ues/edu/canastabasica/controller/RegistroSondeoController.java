@@ -188,23 +188,34 @@ public class RegistroSondeoController {
 
 	
 	@GetMapping("/todosproductosajax")
-	public List<Producto> listarProductos(@RequestParam(name="subcategoria_id") String subcategoria_id) {
+	public List<Object[]> listarProductos(@RequestParam(name="subcategoria_id") String subcategoria_id) {
 		
 		long sbcat_id = Long.parseLong(subcategoria_id);
 		SubCategoria subcategoria = subcategoriaService.findById(sbcat_id);
 		
 		List<Producto> productos_completos = productoService.listAllProductosBySubCategoria(subcategoria);
 		
-		List<Producto> productos = new ArrayList<Producto>();
+		List<Object[]> objetos_producto = new ArrayList<Object[]>();
 		
 		for (Producto producto : productos_completos) {
-			Producto producto_pasar = new Producto();
-			producto_pasar.setIdProducto(producto.getIdProducto());
-			producto_pasar.setNombreProducto(producto.getNombreProducto());
-			productos.add(producto_pasar);
+			
+			Object[] objeto = new Object[5];
+			
+			// ID Producto
+			objeto[0] = producto.getIdProducto();
+			// Nombre Producto
+			objeto[1] = producto.getNombreProducto();
+			// Marca
+			objeto[2] = producto.getMarca().getNombreMarca();
+			// Presentación
+			objeto[3] = producto.getPresentacion();
+			//Unidad
+			objeto[4] = producto.getUnidadMedida().getAbreviatura();
+			
+			objetos_producto.add(objeto);
 		}
 		
-		return productos;
+		return objetos_producto;
 	}
 	
 	// Vista que muestra el formulario para registrar usuario

@@ -107,7 +107,7 @@ $(document).on("change", "#select-subcategoria", function() {
     	$("#select-producto").append(`<option value="0" selected disabled>Seleccionar...</option>`);
     	
     	response.data.forEach(function (element) {
-    		$("#select-producto").append(`<option value="${element.idProducto}">${element.nombreProducto}</option>`);
+    		$("#select-producto").append(`<option value="${element[0]}">${element[1]} - ${element[2]} - ${element[3]} - ${element[4]}</option>`);
     	})
     	
     }).catch(e => {
