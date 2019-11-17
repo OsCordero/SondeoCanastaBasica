@@ -295,15 +295,20 @@ public class RegistroSondeoController {
         
 	}
 	
-	@GetMapping("/eliminarregistro/{periodo_id}/{producto_id}")
-    public String eliminar(@PathVariable(value="periodo_id") Long idPeriodo, @PathVariable(value="producto_id") Long idProducto) {
+	@GetMapping("/eliminarregistro/{periodo_id}/{producto_id}/{establecimiento_id}")
+    public @ResponseBody ModelAndView eliminar(@PathVariable(value="periodo_id") Long idPeriodo, @PathVariable(value="producto_id") Long idProducto,@PathVariable(value="establecimiento_id") Long idEstablecimiento ) {
 	
 		PeriodoSondeo periodoSondeo = periodoSondeoService.findById(idPeriodo);
 		Producto producto= productoService.findProductoById(idProducto);
-		RegistroSondeo registro = registroSondeoService.findByPeriodoSondeoAndProducto(periodoSondeo, producto);
-		registroSondeoRepo.delete(registro);
-
-        return "Eliminado con exito";
+		Establecimiento establecimiento= establecimientoService.findEstablecimientoById(idEstablecimiento);
+		
+		//return "Datos:"+idProducto.toString()+idPeriodo.toString()+idEstablecimiento.toString();
+		
+		//RegistroSondeo registro = registroSondeoService.findByPeriodoSondeoAndProducto(periodoSondeo, producto);
+		RegistroSondeo registroSondeo=registroSondeoRepo.findByPeriodoSondeoAndEstablecimientoAndProducto(periodoSondeo, establecimiento, producto);
+		registroSondeoRepo.delete(registroSondeo);
+		String periodo = idPeriodo.toString();
+		return new ModelAndView ("redirect:/registrossondeos?periodo_id="+periodo+"&save=1");	
 	}
 	
 	// Vista que muestra el formulario para registrar usuario

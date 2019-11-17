@@ -34,7 +34,7 @@
               	<td th:text="${sondeo.getEstablecimiento().getNombreEstablecimiento()}"></td>
                 
 				<td class="text-center">
-					<a class="btn btn-info btn-sm " th:href="@{/eliminarregistro/}+${periodo.getIdPeriodo()}+@{/}+${sondeo.getProducto().getIdProducto()}">
+					<a class="btn btn-info btn-sm " th:href="@{/eliminarregistro/}+${periodo.getIdPeriodo()}+@{/}+${sondeo.getProducto().getIdProducto()}+@{/}+${sondeo.getEstablecimiento().getIdEstablecimiento()}">
                         <i class="fas fa-hourglass-end"></i> Eliminar registro
 					</a>
 					<a class="btn btn-info btn-sm " th:href="@{/editarregistro?periodo_id=}+${periodo.getIdPeriodo()}+@{&establecimiento_id=}+${sondeo.getEstablecimiento().getIdEstablecimiento()}+@{&producto_id=}+${sondeo.getProducto().getIdProducto()}">
@@ -49,7 +49,7 @@
 </form>
 </div>
 <section layout:fragment="javascript-content">
-		<script src=""></script>
+		<script src="js/eliminar_registro.js"></script>
 	</section>
 </body>
 </html>
