@@ -94,10 +94,10 @@ public class DemoApplicationTests {
 		
 	}
 
-	@Test
+	/*@Test
 	public void createCategoriasSubCategorias(){
 		Categoria cateUno= new Categoria();
 		cateUno.setNombreCategoria("Categoria Prueba Uno");
 		categoriaRepo.save(cateUno);		
-	}
+	}*/
 }

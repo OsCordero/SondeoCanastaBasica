@@ -23,10 +23,10 @@ public class Producto{
     @Column(name= "idProducto", unique = true , nullable = false)
     private Long idProducto;
 
-    @Column(name="nombreProducto", unique=true,nullable=false, length=200)
+    @Column(name="nombreProducto", unique=false,nullable=false, length=200)
     String nombreProducto;
 
-    @Column(name="presentacion", unique=true,nullable=true, length=20)
+    @Column(name="presentacion", unique=false,nullable=true, length=20)
     String presentacion;
 
     @ManyToOne(fetch = FetchType.LAZY)
