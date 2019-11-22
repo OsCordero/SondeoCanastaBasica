@@ -55,6 +55,21 @@ public class PeriodoSondeoController {
 		return "registrado con exito";
 	}
 
+	//carga la vista
+	@GetMapping("/editarperiodo")
+	public ModelAndView editPeriodo(@RequestParam(name="id", required=true) Long id) {
+		ModelAndView mav = new ModelAndView("periodoSondeo/editarperiodo");
+		mav.addObject("periodo", periodoSondeoService.findById(id));
+		return mav;
+	}
+	// Ejecuta el update en la bd
+	@GetMapping("/updateperiodo")
+	public @ResponseBody String updatePeriodo(@ModelAttribute("periodo") PeriodoSondeo periodo) {
+	
+		periodo.setFinalizado(false);		
+		periodoSondeoService.updatePeriodoSondeo(periodo);
+		return "editado con exito";
+	}
 	@GetMapping("/finalizarperiodo")
 	public @ResponseBody String finalizarPeriodo(@RequestParam(name="id") Long id) {
 		periodoSondeoService.finalizarPeriodo(id);

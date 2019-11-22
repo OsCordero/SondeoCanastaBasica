@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.w3.org/1999/xhtml"
+	layout:decorate="~{layouts/layout}">
+<body>
+	<div class="container" layout:fragment="content">
+
+		<h2>Editar periodo</h2>
+
+		<form class="mt-4"action="#" id="form-registrar-periodo" th:action="@{/updateperiodo}" th:object="${periodo}">
+
+			<div class="form-group">
+				<div class="input-group">
+					<div class="input-group-prepend">
+						<div class="input-group-text">Nombre</div>
+					</div>
+                    <input type="text" class="form-control" placeholder="Nombre" aria-describedby="nombreHelp" th:field="*{nombrePeriodo}" required>
+                    
+                </div>
+                <small id="nombreHelp" class="form-text text-muted">Debe ser un nombre descriptivo del periodo (Ej. marzo-abril 2019)</small>
+			</div>
+        <div class="row">
+			<div class="form-group col-sm">
+				<div class="input-group">
+					<div class="input-group-prepend">
+						<div class="input-group-text">Fecha de inicio</div>
+					</div>
+					<input type="date" class="form-control" placeholder="Fecha de inicio" th:field="*{fechaInicio}" aria-describedby="error_username" required>
+				</div>
+				<small id="error_fechaInicio" class="form-text text-danger"></small>
+			</div>
+			<div class="form-group col-sm">
+				<div class="input-group">
+					<div class="input-group-prepend">
+						<div class="input-group-text">Fecha de fin</div>
+					</div>
+					<input type="date" class="form-control" placeholder="Fecha de fin" th:field="*{fechaFin}"  aria-describedby="error_correo" required>
+				</div>
+				<small id="error_fechaFin" class="form-text text-danger"></small>
+            </div>
+        </div>
+			
+			<br>
+			<p>
+				<input class="btn btn-primary" type="submit" value="Actualizar">
+				<input id="btn-cancelar" class="btn btn-danger" type="button" value="Cancelar">
+			</p>
+
+		</form>
+	</div>
+	</div>
+	<section layout:fragment="javascript-content">
+		<script src="js/registrarperiodosondeo.js"></script>
+	</section>
+</body>
+</html>

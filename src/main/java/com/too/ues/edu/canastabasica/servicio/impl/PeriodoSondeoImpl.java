@@ -23,6 +23,11 @@ public class PeriodoSondeoImpl implements PeriodoSondeoService {
 	}
 
 	@Override
+	public PeriodoSondeo updatePeriodoSondeo(PeriodoSondeo periodo) {
+		periodoSondeoRepo.save(periodo);
+		return null;
+	}
+	@Override
 	public List<PeriodoSondeo> listAllPeriodos() {
 		return periodoSondeoRepo.findAll();
 	}

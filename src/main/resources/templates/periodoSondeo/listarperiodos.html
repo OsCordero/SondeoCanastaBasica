@@ -13,7 +13,7 @@
 				<th>Desde</th>
                 <th>Hasta</th>
                 <th>Estado</th>
-				<th style="width:150px"></th>
+				<th style="width:250px">Acciones</th>
 			</tr>
 		</thead>
 		<tbody>			
@@ -26,6 +26,9 @@
 					<a  th:classappend="${periodo.isFinalizado()}?'disabled':''"class="btn btn-info btn-sm " th:href="@{/finalizarperiodo?id=__${periodo.getIdPeriodo()}__}">
                         <i class="fas fa-hourglass-end"></i> Finalizar periodo
 					</a>
+					<a  class="btn btn-primary btn-sm" th:href="@{/editarperiodo?id=__${periodo.getIdPeriodo()}__}">
+						<i class="fas fa-pen"></i> Editar
+					 </a>
 				</td>				
 			</tr>			
 		</tbody>

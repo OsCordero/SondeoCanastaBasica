@@ -8,6 +8,8 @@ public interface PeriodoSondeoService {
 
 	public abstract List<PeriodoSondeo> listAllPeriodos();
 	public abstract PeriodoSondeo addPeriodoSondeo(PeriodoSondeo periodo);
+	public abstract PeriodoSondeo updatePeriodoSondeo(PeriodoSondeo periodo);
 	public abstract PeriodoSondeo findById(Long id);
 	public abstract int finalizarPeriodo(Long id);
 }
+
