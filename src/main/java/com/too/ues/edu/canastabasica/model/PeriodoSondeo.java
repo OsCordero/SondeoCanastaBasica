@@ -36,7 +36,7 @@ public class PeriodoSondeo{
     @Column(name = "finalizado", nullable = true)
     private boolean finalizado;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "periodoSondeo", orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "periodoSondeo")
     private List<RegistroSondeo> registroSondeos;
 
     public Long getIdPeriodo() {

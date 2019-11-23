@@ -66,7 +66,7 @@ public class PeriodoSondeoController {
 	@GetMapping("/updateperiodo")
 	public @ResponseBody String updatePeriodo(@ModelAttribute("periodo") PeriodoSondeo periodo) {
 	
-		periodo.setFinalizado(false);		
+		System.out.println(periodo);
 		periodoSondeoService.updatePeriodoSondeo(periodo);
 		return "editado con exito";
 	}

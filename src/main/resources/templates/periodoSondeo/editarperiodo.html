@@ -6,8 +6,8 @@
 
 		<h2>Editar periodo</h2>
 
-		<form class="mt-4"action="#" id="form-registrar-periodo" th:action="@{/updateperiodo}" th:object="${periodo}">
-
+		<form class="mt-4"action="#" id="form-editar-periodo" th:action="@{/updateperiodo}" th:object="${periodo}">
+			<input type="hidden" th:field="*{idPeriodo}">
 			<div class="form-group">
 				<div class="input-group">
 					<div class="input-group-prepend">
@@ -33,7 +33,7 @@
 					<div class="input-group-prepend">
 						<div class="input-group-text">Fecha de fin</div>
 					</div>
-					<input type="date" class="form-control" placeholder="Fecha de fin" th:field="*{fechaFin}"  aria-describedby="error_correo" required>
+					<input type="date" class="form-control" placeholder="Fecha de fin" th:field="*{fechaFin}"  aria-describedby="error_fechafin" required>
 				</div>
 				<small id="error_fechaFin" class="form-text text-danger"></small>
             </div>
@@ -41,7 +41,7 @@
 			
 			<br>
 			<p>
-				<input class="btn btn-primary" type="submit" value="Actualizar">
+				<input class="btn btn-primary" type="submit" value="Editar">
 				<input id="btn-cancelar" class="btn btn-danger" type="button" value="Cancelar">
 			</p>
 
@@ -49,7 +49,7 @@
 	</div>
 	</div>
 	<section layout:fragment="javascript-content">
-		<script src="js/registrarperiodosondeo.js"></script>
+		<script src="js/editarperiodo.js"></script>
 	</section>
 </body>
 </html>

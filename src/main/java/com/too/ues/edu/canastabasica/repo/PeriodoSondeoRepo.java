@@ -9,5 +9,5 @@ import com.too.ues.edu.canastabasica.model.PeriodoSondeo;
 
 @Repository("PeriodoSondeoRepo")
 public interface PeriodoSondeoRepo extends JpaRepository<PeriodoSondeo, Long>{
-
+    
 }
