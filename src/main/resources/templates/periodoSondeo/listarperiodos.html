@@ -23,10 +23,10 @@
                 <td th:text="${periodo.getFechaFin()}"></td>
                 <td th:text="${periodo.isFinalizado()}? 'Terminado': 'En curso'"></td>
 				<td class="text-center">
-					<a  th:classappend="${periodo.isFinalizado()}?'disabled':''"class="btn btn-info btn-sm " th:href="@{/finalizarperiodo?id=__${periodo.getIdPeriodo()}__}">
+					<a  th:classappend="${periodo.isFinalizado()}?'disabled':''" id="finalizar" class="btn btn-info btn-sm " th:href="@{/finalizarperiodo?id=__${periodo.getIdPeriodo()}__}">
                         <i class="fas fa-hourglass-end"></i> Finalizar periodo
 					</a>
-					<a  class="btn btn-primary btn-sm" th:href="@{/editarperiodo?id=__${periodo.getIdPeriodo()}__}">
+					<a  th:classappend="${periodo.isFinalizado()}?'disabled':''" class="btn btn-primary btn-sm" th:href="@{/editarperiodo?id=__${periodo.getIdPeriodo()}__}">
 						<i class="fas fa-pen"></i> Editar
 					 </a>
 				</td>				
@@ -35,7 +35,7 @@
 	</table>
 </div>
 	<section layout:fragment="javascript-content">
-		<script src="js/listarusuarios.js"></script>
+		<script src="js/listarperiodos.js"></script>
 	</section>
 </body>
 </html>

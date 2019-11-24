@@ -45,7 +45,7 @@ $(document).on("submit", "#form-editar-periodo", function(e) {
                 Swal.fire({
                     type: 'success',
                     title: 'periodo:',
-                    text: 'Editado con éxito!:',
+                    text: 'Editado con éxito!',
                 })
                 .then(function(){
                     window.location.href = "/listarperiodos";
@@ -55,7 +55,7 @@ $(document).on("submit", "#form-editar-periodo", function(e) {
 				Swal.fire({
                     type: 'error',
                     title: '¡Alto!',
-                    text: 'Hubo un error en la actulización.',
+                    text: 'Hubo un error en la finalización.',
                 });
 				console.log(eee);
 				

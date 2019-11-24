@@ -8,6 +8,7 @@
 
 		<form class="mt-4"action="#" id="form-editar-periodo" th:action="@{/updateperiodo}" th:object="${periodo}">
 			<input type="hidden" th:field="*{idPeriodo}">
+			<input  th:field="*{finalizado}">
 			<div class="form-group">
 				<div class="input-group">
 					<div class="input-group-prepend">
@@ -44,7 +45,7 @@
 				<input class="btn btn-primary" type="submit" value="Editar">
 				<input id="btn-cancelar" class="btn btn-danger" type="button" value="Cancelar">
 			</p>
-
+			
 		</form>
 	</div>
 	</div>
