@@ -32,19 +32,33 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
     protected void configure(HttpSecurity http) throws Exception {
         http
             .authorizeRequests()
-	        .antMatchers(resources).permitAll()  
-            .antMatchers("/","/home").access("hasRole('USER') or hasRole('ADMIN')")
-            .antMatchers("/listarusuarios*").access("hasRole('USER') or hasRole('ADMIN')")
+            .antMatchers(resources).permitAll()  
+            .antMatchers("/","/home","/index").permitAll()            
+            .antMatchers("/listarusuarios*").access("hasRole('ADMIN')")
             .antMatchers("/registrarusuario*").access("hasRole('ADMIN')")
-            //.antMatchers("/addusuario*").access("hasRole('ADMIN')")
-	        .antMatchers("/usuario*").access("hasRole('ADMIN')")
-	        .antMatchers("/hello*").access("hasRole('USER') or hasRole('ADMIN')")
-                .anyRequest().authenticated()
+            .antMatchers("/editarusuario*").access("hasRole('ADMIN')")
+            .antMatchers("/addusuario*").access("hasRole('ADMIN')")
+            .antMatchers("/updateusuario*").access("hasRole('ADMIN')")
+            .antMatchers("/eliminarusuario*").access("hasRole('ADMIN')")
+            .antMatchers("/listarperiodos*").permitAll()
+            .antMatchers("/registrarperiodo*").access("hasRole('USER') or hasRole('ADMIN')")
+            .antMatchers("/addperiodo*").access("hasRole('USER') or hasRole('ADMIN')")
+            .antMatchers("/editarperiodo*").access("hasRole('USER') or hasRole('ADMIN')")
+            .antMatchers("/updateperiodo*").access("hasRole('USER') or hasRole('ADMIN')")
+            .antMatchers("/finalizarperiodo*").access("hasRole('USER') or hasRole('ADMIN')")
+            .antMatchers("/registrarregistrosondeo*").access("hasRole('USER') or hasRole('ADMIN')")
+            .antMatchers("/addregistrosondeo*").access("hasRole('USER') or hasRole('ADMIN')")            
+            .antMatchers("/listarperiodosondeo*").access("hasRole('USER') or hasRole('ADMIN')")
+            .antMatchers("/registrossondeos*").access("hasRole('USER') or hasRole('ADMIN')")
+            .antMatchers("/eliminarregistro*").access("hasRole('USER') or hasRole('ADMIN')")
+            .antMatchers("/editarregistro*").access("hasRole('USER') or hasRole('ADMIN')")
+            .antMatchers("/updateregistrosondeo*").access("hasRole('USER') or hasRole('ADMIN')")
+                //.anyRequest().authenticated()
                 .and()
             .formLogin()
                 .loginPage("/login")
                 .permitAll()
-                .defaultSuccessUrl("/listarusuarios")
+                .defaultSuccessUrl("/index")
                 .failureUrl("/login?error=true")
                 .usernameParameter("username")
                 .passwordParameter("password")
@@ -53,7 +67,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
                 .logoutUrl("/app-logout")
                 .permitAll()
                 //.logoutSuccessUrl("/login?logout");
-                .logoutSuccessUrl("/login");
+                .logoutSuccessUrl("/index");
     }
     BCryptPasswordEncoder bCryptPasswordEncoder;
     //Crea el encriptador de contraseñas	
