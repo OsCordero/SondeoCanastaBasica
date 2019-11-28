@@ -3,6 +3,11 @@ package com.too.ues.edu.canastabasica.controller;
 import com.too.ues.edu.canastabasica.model.PeriodoSondeo;
 import com.too.ues.edu.canastabasica.repo.PeriodoSondeoRepo;
 import com.too.ues.edu.canastabasica.servicio.PeriodoSondeoService;
+import com.too.ues.edu.canastabasica.servicio.impl.ReportService;
+
+import net.sf.jasperreports.engine.JRException;
+
+import java.io.FileNotFoundException;
 
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +36,10 @@ public class PeriodoSondeoController {
 
 	@Autowired
 	private PeriodoSondeoRepo repo;
+	
+	 @Autowired
+	 @Qualifier("reporteServiceImpl")
+	 private ReportService service;
 
 
 	@GetMapping("/listarperiodos")
@@ -78,5 +87,10 @@ public class PeriodoSondeoController {
 		periodoSondeoService.finalizarPeriodo(id);
 		return "editado con éxito";		
 	}
+	
+	@GetMapping("/report")
+    public String generateReport() throws FileNotFoundException, JRException {
+        return service.exportReport();
+    }
     
 }

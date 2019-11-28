@@ -3,6 +3,10 @@ package com.too.ues.edu.canastabasica.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.validation.*;
 
 import com.too.ues.edu.canastabasica.model.RegistroSondeo;
@@ -53,6 +57,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 @RestController
 public class RegistroSondeoController {
+	
+	@PersistenceContext
+	private EntityManager em;
 	    
 	@Autowired
 	@Qualifier("registroSondeoServiceImpl")
@@ -350,6 +357,24 @@ public class RegistroSondeoController {
         registroSondeoService.updateRegistroSondeo(registroSondeo);
 		return new ModelAndView ("redirect:/editarregistro?periodo_id="+periodo_id+"&establecimiento_id="+establecimiento_id+"&producto_id="+producto_id+"&save=1");		
 	}	
+	
+	@GetMapping("/consulta")
+	public List<Object[]> consultaReporte(){
+		Long id=(long) 1;
+	        Query nativeQuery = em.createNativeQuery("SELECT RE.PESO,\r\n" + 
+	        		"RE.PRECIO, PR.NOMBRE_PRODUCTO, PR.ABREVIATURA, ES.NOMBRE_ESTABLECIMIENTO, M.NOMBRE_MUNICIPIO, D.NOMBRE_DEPARTAMENTO\r\n" + 
+	        		"FROM PERIODO_SONDEO PE JOIN REGISTRO_SONDEO RE\r\n" + 
+	        		"ON PE.ID_PERIODO = RE.ID_PERIODO\r\n" + 
+	        		"JOIN PRODUCTO PR ON RE.ID_PRODUCTO = PR.ID_PRODUCTO\r\n" + 
+	        		"JOIN ESTABLECIMIENTO ES ON RE.ID_ESTABLECIMIENTO = ES.ID_ESTABLECIMIENTO\r\n" + 
+	        		"JOIN MUNICIPIO M ON ES.ID_MUNICIPIO = M.ID_MUNICIPIO \r\n" + 
+	        		"JOIN DEPARTAMENTO D ON M.ID_DEPARTAMENTO = D.ID_DEPARTAMENTO\r\n" + 
+	        		"ORDER BY D.ID_DEPARTAMENTO");
+	        //((javax.persistence.Query) nativeQuery).setParameter(1, id);        
+	        return nativeQuery.getResultList();
+	        
+	       
+	}
 		
 }
 
