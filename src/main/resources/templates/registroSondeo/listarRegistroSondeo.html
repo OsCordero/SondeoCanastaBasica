@@ -6,6 +6,9 @@
 
 		<h1>Lista de registro de precios de productos</h1>
 		<h2 th:text="${periodo.getNombrePeriodo()}"></h2>
+		<a class="btn btn-info btn-sm " th:href="@{/report?id_periodo=__${periodo.getIdPeriodo()}__}">
+                        <i class="fas fa-hourglass-end"></i> Generar reporte
+					</a>
 		<form action="#" id="form-registrar-usuario" th:action="@{/addregistrosondeo}" th:object="${registroSondeo}">			
 			
 			

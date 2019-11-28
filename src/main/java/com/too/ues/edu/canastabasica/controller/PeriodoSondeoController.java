@@ -89,8 +89,10 @@ public class PeriodoSondeoController {
 	}
 	
 	@GetMapping("/report")
-    public String generateReport() throws FileNotFoundException, JRException {
-        return service.exportReport();
+    public ModelAndView generateReport(@RequestParam(name="id_periodo") String periodo_id) throws FileNotFoundException, JRException {
+        
+		String mensaje = service.exportReport(periodo_id);
+		return new ModelAndView ("redirect:/listarperiodosondeo?save=1");
     }
     
 }
