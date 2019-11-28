@@ -19,6 +19,7 @@
         <small id="error_rol" class="form-text text-danger"></small
         ><!--¿No debería estar una línea arriba?-->
 
+<<<<<<< HEAD
         <table
           class="table table-bordered table-striped"
           id="dataTable"
@@ -48,6 +49,52 @@
               <td
                 th:text="${sondeo.getEstablecimiento().getNombreEstablecimiento()}"
               ></td>
+=======
+		<h1>Lista de registro de precios de productos</h1>
+		<h2 th:text="${periodo.getNombrePeriodo()}"></h2>
+		<a class="btn btn-info btn-sm " th:href="@{/report?id_periodo=__${periodo.getIdPeriodo()}__}">
+                        <i class="fas fa-hourglass-end"></i> Generar reporte
+					</a>
+		<form action="#" id="form-registrar-usuario" th:action="@{/addregistrosondeo}" th:object="${registroSondeo}">			
+			
+			
+			<div class="input-group mb-3">
+                <!--<small id="error_rol" class="form-text text-danger"></small>-->
+			</div>
+			<small id="error_rol" class="form-text text-danger"></small><!--¿No debería estar una línea arriba?-->
+			
+			<table class="table table-bordered table-striped" id="dataTable" width="100%" cellspacing="0">
+		<thead>
+			<tr>
+				<th>Producto</th>
+				<th>Marca</th>
+                <th>Precio</th>
+                <th>Peso</th>
+                <th>Establecimiento</th>
+				<th style="width:150px"></th>
+			</tr>
+		</thead>
+		<tbody>			
+			<tr th:each="sondeo : ${listaRegistroSondeo}">	
+			    <td th:text="${sondeo.getProducto().getNombreProducto()}"></td>	
+			    <td th:text="${sondeo.getProducto().getMarca().getNombreMarca()}"></td>			
+				<td th:text="${sondeo.getPrecio()}"></td>
+				<td th:text="${sondeo.getPeso()} + ${sondeo.getProducto().getUnidadMedida().getAbreviatura()}"></td>
+              	<td th:text="${sondeo.getEstablecimiento().getNombreEstablecimiento()}"></td>
+                
+				<td class="text-center">
+					<a class="btn btn-info btn-sm " th:href="@{/eliminarregistro/}+${periodo.getIdPeriodo()}+@{/}+${sondeo.getProducto().getIdProducto()}+@{/}+${sondeo.getEstablecimiento().getIdEstablecimiento()}">
+                        <i class="fas fa-hourglass-end"></i> Eliminar registro
+					</a>
+					<a class="btn btn-info btn-sm " th:href="@{/editarregistro?periodo_id=}+${periodo.getIdPeriodo()}+@{&establecimiento_id=}+${sondeo.getEstablecimiento().getIdEstablecimiento()}+@{&producto_id=}+${sondeo.getProducto().getIdProducto()}">
+                        <i class="fas fa-hourglass-end"></i> Editar registro
+					</a>
+				</td>				
+			</tr>			
+		</tbody>
+	</table>
+                       
+>>>>>>> 2d53b107982eb3165ece7e462f817dc87ad1d2cb
 
               <td class="text-center">
                 <a

@@ -6,6 +6,8 @@ import java.io.InputStream;
 import com.too.ues.edu.canastabasica.model.PeriodoSondeo;
 import com.too.ues.edu.canastabasica.model.ReporteSondeo;
 import com.too.ues.edu.canastabasica.repo.PeriodoSondeoRepo;
+import com.too.ues.edu.canastabasica.servicio.PeriodoSondeoService;
+
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.design.JasperDesign;
@@ -15,6 +17,7 @@ import net.sf.jasperreports.export.SimpleExporterInput;
 import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
 import net.sf.jasperreports.export.SimplePdfExporterConfiguration;
 import net.sf.jasperreports.export.SimplePdfReportConfiguration;
+import net.sf.jasperreports.view.JasperViewer;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -40,12 +43,19 @@ public class ReportService {
 	 @Qualifier("PeriodoSondeoRepo")
 	    private PeriodoSondeoRepo repository;
 	 
+	 @Autowired
+		@Qualifier("periodoSondeoImpl")
+		private PeriodoSondeoService periodoSondeoService;
+	 
+	 @Autowired
+		private PeriodoSondeoRepo Periodorepo;
+	 
 		
 		@PersistenceContext
 		private EntityManager em;
 
 
-	    public String exportReport() throws FileNotFoundException, JRException {
+	    public String exportReport(String id) throws FileNotFoundException, JRException {
 	        /*String path = "C:\\Users\\chest\\Desktop\\Report";
 	        List<PeriodoSondeo> employees = repository.findAll();
 	        //load file and compile it
@@ -62,17 +72,18 @@ public class ReportService {
 
 	        return "report generated in path : " + path;*/
 	    	String path = "C:\\Users\\chest\\Desktop\\Report";
-	    			//Long id=(long) 1;
+	    			Long idPeriodo=Long.valueOf(id);
+	    			PeriodoSondeo pe = periodoSondeoService.findById(idPeriodo);
 	    	        Query nativeQuery = em.createNativeQuery("SELECT RE.PESO,\r\n" + 
 	    	        		"RE.PRECIO, PR.NOMBRE_PRODUCTO, PR.ABREVIATURA, ES.NOMBRE_ESTABLECIMIENTO, M.NOMBRE_MUNICIPIO, D.NOMBRE_DEPARTAMENTO\r\n" + 
 	    	        		"FROM PERIODO_SONDEO PE JOIN REGISTRO_SONDEO RE\r\n" + 
-	    	        		"ON PE.ID_PERIODO = RE.ID_PERIODO\r\n" + 
+	    	        		"ON PE.ID_PERIODO = RE.ID_PERIODO AND PE.ID_PERIODO = ?\r\n" + 
 	    	        		"JOIN PRODUCTO PR ON RE.ID_PRODUCTO = PR.ID_PRODUCTO\r\n" + 
 	    	        		"JOIN ESTABLECIMIENTO ES ON RE.ID_ESTABLECIMIENTO = ES.ID_ESTABLECIMIENTO\r\n" + 
 	    	        		"JOIN MUNICIPIO M ON ES.ID_MUNICIPIO = M.ID_MUNICIPIO \r\n" + 
 	    	        		"JOIN DEPARTAMENTO D ON M.ID_DEPARTAMENTO = D.ID_DEPARTAMENTO\r\n" + 
 	    	        		"ORDER BY D.ID_DEPARTAMENTO");
-	    	        //((javax.persistence.Query) nativeQuery).setParameter(1, id);        
+	    	       nativeQuery.setParameter(1, idPeriodo);        
 	    	        List<Object[]> records=  nativeQuery.getResultList();
 	    	        List<ReporteSondeo> registros = records.stream().map(result -> new ReporteSondeo(Float.valueOf(result[0].toString()), Float.valueOf(result[1].toString()), (String) result[2], (String) result[3],(String) result[4], (String) result[5], (String) result[6])).collect(Collectors.toList());
 
@@ -80,10 +91,10 @@ public class ReportService {
 	    	        JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
 	    	        JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(registros);
 	    	        Map<String, Object> parameters = new HashMap<>();
-	    	        parameters.put("createdBy", "Java Techie");
+	    	        parameters.put("periodo", pe.getNombrePeriodo());
 	    	        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource);
 	    	       
-	    	       
+	    	        
 	    	        JasperExportManager.exportReportToPdfFile(jasperPrint, path + "\\sondeo.pdf");
 	    	        
 
