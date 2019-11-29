@@ -9,11 +9,9 @@
 		<form class="mt-4"action="#" id="form-editar-periodo" th:action="@{/updateperiodo}" th:object="${periodo}">
 			<input type="hidden" th:field="*{idPeriodo}">
 			<div class="form-group">
-			<div class="input-group-prepend">
-						<div class="input-group-text">Estado</div>
-					
-			<input  th:field="*{finalizado}">
-			</div>
+			
+			<input type="hidden" th:field="*{finalizado}">
+			
 			<div class="form-group">
 				<div class="input-group">
 					<div class="input-group-prepend">
